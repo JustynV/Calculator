@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'pages/authentication/login_page.dart';
-import 'pages/content/ProblemPage.dart';
+import 'pages/content/UserPage.dart';
 
 class Central extends StatelessWidget {
   const Central({super.key});
@@ -12,7 +12,7 @@ class Central extends StatelessWidget {
   Widget build(BuildContext context) {
     AuthenticationController authenticationController = Get.find();
     return Obx(() => authenticationController.isLogged
-        ? UserListPage(difficulty: "2")
+        ? UserPage(difficulty: "1")
         : const LoginPage());
   }
 }

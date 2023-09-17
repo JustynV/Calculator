@@ -5,6 +5,7 @@ import 'package:loggy/loggy.dart';
 
 class AuthenticationController extends GetxController {
   final logged = true.obs;
+  String user = "test";
 
   bool get isLogged => logged.value;
 
@@ -12,6 +13,7 @@ class AuthenticationController extends GetxController {
     final AuthenticationUseCase authentication = Get.find();
     await authentication.login(email, password);
     logged.value = true;
+    user = email;
   }
 
   Future<bool> signUp(email, password) async {
@@ -23,5 +25,9 @@ class AuthenticationController extends GetxController {
 
   Future<void> logOut() async {
     logged.value = false;
+  }
+
+  String getUser(){
+    return user;
   }
 }

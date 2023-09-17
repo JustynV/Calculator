@@ -1,21 +1,24 @@
+import 'package:f_web_authentication/ui/pages/content/ProblemPage.dart';
 import 'package:flutter/material.dart';
 
-
-class GoButton extends StatelessWidget {
-
-  GoButton(this.sendInput);
-  Function sendInput;
+class goButton extends StatelessWidget {
   @override
+
+  goButton(this.name, this.op, this.diff);
+  String name;
+  String op;
+  String diff; 
+
   Widget build(BuildContext context) {
     return Container(
-      width: 80,
+            width: 250,
       height: 80,
         child: ElevatedButton(
       onPressed: () {
-        sendInput();
+        Navigator.push(context, MaterialPageRoute(builder: (context) => ProblemPage(difficulty: diff, op: op)));
       },
       child: Text(
-        "GO",
+        name,
         style: TextStyle(fontSize: 32.0),
       ),
     ));
