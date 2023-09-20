@@ -158,12 +158,10 @@ class _ProblemPageState extends State<ProblemPage> {
                         sendButton(sendInput),
                       ],
                     ),
-                    Row(children: [
-                      Text("Ejercicios restantes: " + tries.toString(),
-                          style: TextStyle(fontSize: 20.0)),
-                      Text("Respuestas correctas : " + correct.toString(),
-                          style: TextStyle(fontSize: 20.0))
-                    ])
+                    Text("Ejercicios restantes: " + tries.toString(),
+                        style: TextStyle(fontSize: 20.0)),
+                    Text("Respuestas correctas : " + correct.toString(),
+                        style: TextStyle(fontSize: 20.0))
                   ])),
         ),
       ])),
