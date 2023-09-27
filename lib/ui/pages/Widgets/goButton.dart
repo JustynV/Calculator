@@ -1,13 +1,13 @@
+import 'package:f_web_authentication/ui/controller/operation_controller.dart';
 import 'package:f_web_authentication/ui/pages/content/ProblemPage.dart';
 import 'package:flutter/material.dart';
 
 class goButton extends StatelessWidget {
   @override
-  goButton(this.name, this.op, this.diff, this.setDifficulty);
+  goButton(this.name, this.setDifficulty, this.opController, this.operation);
   String name;
-  String op;
-  String diff;
-  late int result;
+  String operation;
+  OperationController opController;
   Function setDifficulty;
 
   Widget build(BuildContext context) {
@@ -15,13 +15,11 @@ class goButton extends StatelessWidget {
         width: 250,
         height: 80,
         child: ElevatedButton(
-          onPressed: () async {
-            int result = await Navigator.push(
+          onPressed: () {
+            Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) =>
-                        ProblemPage(op: op, difficulty: diff)));
-            setDifficulty(result);
+                    builder: (context) => ProblemPage(operation)));
           },
           child: Text(
             name,

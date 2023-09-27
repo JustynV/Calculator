@@ -1,3 +1,4 @@
+import 'package:f_web_authentication/domain/use_case/operation_usercase.dart';
 import 'package:f_web_authentication/ui/controller/authentication_controller.dart';
 import 'package:f_web_authentication/ui/controller/operation_controller.dart';
 import 'package:f_web_authentication/ui/controller/user_controller.dart';
@@ -15,17 +16,9 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
-  OperationController operationController = OperationController(correct: 0);
-
+  OperationController operationController = Get.find();
   UserController userController = Get.find();
-
   AuthenticationController authenticationController = Get.find();
-
-  late String diff;
-
-  String getDifficulty() {
-    return operationController.getDifficulty;
-  }
 
   void setDifficulty(int correct) {
     setState(() {
@@ -42,7 +35,6 @@ class _UserPageState extends State<UserPage> {
   }
 
   Widget build(BuildContext context) {
-    diff = getDifficulty();
     return Scaffold(
         appBar: AppBar(title: const Text("Calculadora"), actions: [
           IconButton(
@@ -57,12 +49,22 @@ class _UserPageState extends State<UserPage> {
                 children: [
               Text(
                   key: Key("welcomeMessage"),
-                  "Bienvenido, Dificultad actual: $diff",
+                  "Bienvenido",
                   style: TextStyle(fontSize: 32.0)),
-              goButton("Suma", "+", diff, setDifficulty),
-              goButton("Resta", "-", diff, setDifficulty),
-              goButton("Multiplicación", "*", diff, setDifficulty),
-              goButton("División", "/", diff, setDifficulty)
+              Obx(() => Text(
+                  key: Key("diffMessage"),
+                  "Nivel de dificultad actual: ${operationController.difficulty}",
+                  style: TextStyle(fontSize: 20.0, color: Colors.amber))),
+              goButton("Suma", setDifficulty, operationController, "+"),
+              goButton(
+                "Resta",
+                setDifficulty,
+                operationController,
+                "-",
+              ),
+              goButton(
+                  "Multiplicación", setDifficulty, operationController, "*"),
+              goButton("División", setDifficulty, operationController, "/")
             ])));
   }
 }

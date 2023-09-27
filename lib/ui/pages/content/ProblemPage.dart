@@ -3,15 +3,16 @@ import 'dart:math';
 import 'package:f_web_authentication/ui/controller/operation_controller.dart';
 import 'package:f_web_authentication/ui/pages/content/UserPage.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../Widgets/clearButton.dart';
 import '../Widgets/sendButton.dart';
 import '../Widgets/numberButton.dart';
 
 class ProblemPage extends StatefulWidget {
-  const ProblemPage({super.key, required this.op, required this.difficulty});
-  final String difficulty;
-  final String op;
+  ProblemPage({super.key, required this.operation});
+  final String operation;
+  OperationController opController = Get.find();
   @override
   State<ProblemPage> createState() => _ProblemPageState();
 }
@@ -20,30 +21,20 @@ class _ProblemPageState extends State<ProblemPage> {
   int correct = 0;
 
   final time = Stopwatch()..start();
-  var rng = Random();
   String input = "0";
-  List<String> operation = [];
+
   int tries = 6;
+  get operation => widget.operation;
+  get opController => widget.opController;
 
-  void initOP() {
-    String a = generateNum();
-    String b = generateNum();
-    operation = [a, widget.op, b];
-  }
+  List operations = [];
 
-  String generateNum() {
-    return (rng.nextInt(
-                pow(num.parse("10"), num.parse(widget.difficulty)).toInt()) +
-            1)
-        .toString();
-  }
-
-  bool checkAnswer(List<String> op, String input) {
-    int a = int.parse(op[0]);
-    int b = int.parse(op[2]);
+  bool checkAnswer(String input) {
+    int a = int.parse(operations[tries - 1][0]);
+    int b = int.parse(operations[tries - 1][1]);
     int intput = int.parse(input);
 
-    switch (op[1]) {
+    switch (operation) {
       case "+":
         if (a + b == intput) {
           return true;
@@ -86,27 +77,37 @@ class _ProblemPageState extends State<ProblemPage> {
 
   sendInput() {
     setState(() {
-      if (checkAnswer(operation, input)) {
+      if (checkAnswer(input)) {
         resetInput();
         correct += 1;
       } else {
         resetInput();
       }
       tries = tries - 1;
-      operation[0] = generateNum();
-      operation[2] = generateNum();
     });
+  }
+
+  String getData() {
+    if (tries > 0) {
+      return operations[tries - 1][0] + operation + operations[tries - 1][1];
+    }
+    return "";
+  }
+
+  initOP() {
+    operations = opController.getEjercicios();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (operation.isEmpty) {
+    if (operations.isEmpty) {
       initOP();
     }
 
-    if (tries == 0) {
-      Navigator.pop(context, correct);
+    if (tries == 1) {
+      opController.setDifficulty(correct);
       time.stop();
+      Navigator.pop(context);
     }
     return Scaffold(
       appBar: AppBar(
@@ -114,9 +115,7 @@ class _ProblemPageState extends State<ProblemPage> {
       ),
       body: Center(
           child: Column(children: [
-        Expanded(
-            child: Text(operation[0] + operation[1] + operation[2],
-                style: TextStyle(fontSize: 64.0))),
+        Expanded(child: Text(getData(), style: TextStyle(fontSize: 64.0))),
         Expanded(child: Text(input, style: TextStyle(fontSize: 64.0))),
         Expanded(
           flex: 3,
