@@ -104,7 +104,7 @@ class _ProblemPageState extends State<ProblemPage> {
       initOP();
     }
 
-    if (tries == 1) {
+    if (tries == 0) {
       opController.setDifficulty(correct);
       time.stop();
       Navigator.pop(context);

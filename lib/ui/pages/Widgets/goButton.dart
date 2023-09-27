@@ -19,7 +19,7 @@ class goButton extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => ProblemPage(operation)));
+                    builder: (context) => ProblemPage(operation: operation)));
           },
           child: Text(
             name,
