@@ -1,12 +1,14 @@
-import 'package:f_web_authentication/ui/controller/input_controller.dart';
+import 'package:f_web_authentication/ui/controller/operation_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SendButton extends StatelessWidget {
 
-  SendButton();
-  InputController inputController = Get.find();
-
+  SendButton({super.key, required this.a, required this.b, required this.operation, });
+  OperationController opController = Get.find();
+  String a;
+  String b;
+  String operation;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -15,7 +17,7 @@ class SendButton extends StatelessWidget {
         child: ElevatedButton(
         style: ElevatedButton.styleFrom(backgroundColor: Colors.amber),
       onPressed: () {
-        
+        opController.updateCorrect(int.parse(a), int.parse(b), operation);
       },
       child: Text(
         "GO",

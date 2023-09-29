@@ -5,11 +5,18 @@ import 'package:get/get.dart';
 
 class OperationController extends GetxController {
   OperationController();
-  
+
+  RxString input = "0".obs;
+  RxInt correct = 0.obs;
   RxInt difficulty = 1.obs;
+  RxInt tries = 6.obs;
   OperationUsercase opUsercase = Get.find();
-  late int correct;
   var rng = Random();
+
+  void init(){
+    correct.value = 0;
+    tries.value = 6;
+  }
 
   void setDifficulty(int correct) {
     difficulty.value = opUsercase.setDifficulty(difficulty.value, correct);
@@ -38,5 +45,49 @@ class OperationController extends GetxController {
       }
     }
     return ejercicios;
+  }
+
+
+  void updateInput(String i) {
+    if (input.value == "0") {
+      input.value = i;
+    } else {
+      input.value = input.value + i;
+    }
+  }
+  void resetInput() {
+    input.value = "0";
+  }
+
+  void updateCorrect(int a, int b, String operation){
+    correct.value = checkAnswer(a, b, operation);
+  }
+
+  int checkAnswer(int a, int b, String operation) {
+    int intput = int.parse(input.value);
+
+    switch (operation) {
+      case "+":
+        if (a + b == intput) {
+          return 1;
+        }
+        return 0;
+      case "-":
+        if (a - b == intput) {
+          return 1;
+        }
+        return 0;
+      case "*":
+        if (a * b == intput) {
+          return 1;
+        }
+        return 0;
+      case "/":
+        if ((a / b).round() == intput) {
+          return 1;
+        }
+        return 0;
+    }
+    return 0;
   }
 }

@@ -1,4 +1,5 @@
-import 'package:f_web_authentication/ui/controller/input_controller.dart';
+import 'dart:ffi';
+
 import 'package:f_web_authentication/ui/controller/operation_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,56 +13,22 @@ class ProblemPage extends StatelessWidget {
 
   final String operation;
   OperationController opController = Get.find();
-  InputController inputController = Get.find();
   final time = Stopwatch()..start();
-  int tries = 6;
-  int correct = 0;
-  get op => operation;
   List operations = [];
-  List answers = [];
-  
+
   String getData() {
-    if (tries > 0) {
-      return operations[tries - 1][0] +
+    if (opController.tries.value > 0) {
+      return operations[opController.tries.value - 1][0] +
           "  " +
           operation +
           "  " +
-          operations[tries - 1][1];
+          operations[opController.tries.value - 1][1];
     }
     return "";
   }
 
-  int checkAnswer(String input) {
-    int a = int.parse(operations[tries - 1][0]);
-    int b = int.parse(operations[tries - 1][1]);
-    int intput = int.parse(input);
-
-    switch (operation) {
-      case "+":
-        if (a + b == intput) {
-          return 1;
-        }
-        return 0;
-      case "-":
-        if (a - b == intput) {
-          return 1;
-        }
-        return 0;
-      case "*":
-        if (a * b == intput) {
-          return 1;
-        }
-        return 0;
-      case "/":
-        if ((a / b).round() == intput) {
-          return 1;
-        }
-        return 0;
-    }
-    return 0;
-  }
-
   initOP() {
+    opController.init();
     operations = opController.getEjercicios();
   }
 
@@ -70,8 +37,8 @@ class ProblemPage extends StatelessWidget {
       initOP();
     }
 
-    if (tries == 0) {
-      opController.setDifficulty(correct);
+    if (opController.tries.value == 0) {
+      opController.setDifficulty(opController.correct.value);
       time.stop();
       Navigator.pop(context);
     }
@@ -81,9 +48,8 @@ class ProblemPage extends StatelessWidget {
       ),
       body: Center(
           child: Column(children: [
-        Obx(() => Text("${getData()} = ${inputController.input.value}",
-            style: TextStyle(fontSize: 64.0)))
-        ,
+        Obx(() => Text("${getData()} = ${opController.input.value}",
+            style: TextStyle(fontSize: 64.0))),
         Expanded(
           flex: 3,
           child: Container(
@@ -120,13 +86,17 @@ class ProblemPage extends StatelessWidget {
                       children: [
                         NumberButton("0"),
                         ClearButton(),
-                        SendButton(),
+                        SendButton(
+                            a: operations[opController.tries.value - 1][0],
+                            b: operations[opController.tries.value - 1][1],
+                            operation: operation),
                       ],
                     ),
-                    Text("Ejercicios restantes: $tries",
+                    Text("Ejercicios restantes: ${opController.tries.value}",
                         style: const TextStyle(fontSize: 20.0)),
-                    Text("Respuestas correctas : $correct",
-                        style: const TextStyle(fontSize: 20.0))
+                    Obx(() => Text(
+                        "Respuestas correctas : ${opController.correct.value.toString()}",
+                        style: const TextStyle(fontSize: 20.0)))
                   ])),
         ),
       ])),
