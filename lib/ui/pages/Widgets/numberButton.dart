@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 
 class NumberButton extends StatelessWidget {
 
-  String number;
-  NumberButton(this.number);
-  OperationController opController = Get.find();
+  final String number;
+  NumberButton(this.number, {super.key});
+  final OperationController opController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class NumberButton extends StatelessWidget {
       height: 80,
         child: ElevatedButton(
       onPressed: () {
-        opController.updateInput(this.number);
+        opController.updateInput(number);
       },
       child: Text(
         number,

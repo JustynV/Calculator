@@ -1,7 +1,5 @@
-import 'dart:ffi';
 
-import 'package:f_web_authentication/ui/controller/operation_controller.dart';
-import 'package:flutter/material.dart';
+import 'package:f_web_authentication/ui/controller/operation_controller.dart';import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../Widgets/clearButton.dart';
@@ -12,8 +10,11 @@ class ProblemPage extends StatelessWidget {
   ProblemPage({super.key, required this.operation});
 
   final String operation;
-  OperationController opController = Get.find();
+
+  final OperationController opController = Get.find();
+
   final time = Stopwatch()..start();
+
   List operations = [];
 
   String getData() {
@@ -32,27 +33,30 @@ class ProblemPage extends StatelessWidget {
     operations = opController.getEjercicios();
   }
 
+  @override
   Widget build(BuildContext context) {
-    if (operations.isEmpty) {
-      initOP();
-    }
-
-    if (opController.tries.value == 0) {
-      opController.setDifficulty(opController.correct.value);
-      time.stop();
-      Navigator.pop(context);
-    }
+    initOP();
     return Scaffold(
       appBar: AppBar(
         title: const Text("Ejercicios"),
       ),
       body: Center(
           child: Column(children: [
+        StreamBuilder<int>(
+                stream: opController.tries.stream,
+                builder: (context, snapshot) {
+                  if (snapshot.data == 0) {
+                    opController.setDifficulty(opController.correct.value);
+                    Navigator.pop(context);
+                  }
+                  return Container();
+                },
+              ),
         Obx(() => Text("${getData()} = ${opController.input.value}",
             style: TextStyle(fontSize: 64.0))),
         Expanded(
           flex: 3,
-          child: Container(
+          child: SizedBox(
               width: 400,
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -86,14 +90,16 @@ class ProblemPage extends StatelessWidget {
                       children: [
                         NumberButton("0"),
                         ClearButton(),
-                        SendButton(
-                            a: operations[opController.tries.value - 1][0],
-                            b: operations[opController.tries.value - 1][1],
-                            operation: operation),
+                        Obx(() => SendButton(
+                              a: operations[opController.tries.value - 1][0],
+                              b: operations[opController.tries.value - 1][1],
+                              operation: operation,
+                            )),
                       ],
                     ),
-                    Text("Ejercicios restantes: ${opController.tries.value}",
-                        style: const TextStyle(fontSize: 20.0)),
+                    Obx(() => Text(
+                        "Ejercicios restantes: ${opController.tries.value}",
+                        style: const TextStyle(fontSize: 20.0))),
                     Obx(() => Text(
                         "Respuestas correctas : ${opController.correct.value.toString()}",
                         style: const TextStyle(fontSize: 20.0)))

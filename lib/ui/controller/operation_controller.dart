@@ -13,9 +13,10 @@ class OperationController extends GetxController {
   OperationUsercase opUsercase = Get.find();
   var rng = Random();
 
-  void init(){
+  void init() {
     correct.value = 0;
     tries.value = 6;
+    input.value = "0";
   }
 
   void setDifficulty(int correct) {
@@ -31,36 +32,36 @@ class OperationController extends GetxController {
         .toString();
   }
 
-
-
   List getEjercicios() {
     List ejercicios = [];
     for (int i = 0; i <= 5; i++) {
       String a = generateNum();
       String b = generateNum();
-      if(int.parse(b) > int.parse(a)){
-        ejercicios.add([b,a]);
-      }else{
+      if (int.parse(b) > int.parse(a)) {
+        ejercicios.add([b, a]);
+      } else {
         ejercicios.add([a, b]);
       }
     }
     return ejercicios;
   }
 
-
   void updateInput(String i) {
     if (input.value == "0") {
       input.value = i;
     } else {
-      input.value = input.value + i;
+      input.value += i;
     }
   }
+
   void resetInput() {
     input.value = "0";
   }
 
-  void updateCorrect(int a, int b, String operation){
-    correct.value = checkAnswer(a, b, operation);
+  void updateCorrect(int a, int b, String operation) {
+    correct.value += checkAnswer(a, b, operation);
+    tries.value -= 1;
+    resetInput();
   }
 
   int checkAnswer(int a, int b, String operation) {

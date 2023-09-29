@@ -5,10 +5,12 @@ import 'package:get/get.dart';
 class SendButton extends StatelessWidget {
 
   SendButton({super.key, required this.a, required this.b, required this.operation, });
-  OperationController opController = Get.find();
+  final OperationController opController = Get.find();
+
   String a;
   String b;
   String operation;
+
   @override
   Widget build(BuildContext context) {
     return Container(

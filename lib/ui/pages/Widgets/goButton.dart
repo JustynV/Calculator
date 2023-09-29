@@ -1,14 +1,11 @@
 import 'package:f_web_authentication/ui/pages/content/problem_page.dart';
 import 'package:flutter/material.dart';
 
-import '../content/problem_page.dart';
-
-// ignore: must_be_immutable
 class goButton extends StatelessWidget {
   @override
   goButton(this.name, this.operation);
-  String name;
-  String operation;
+  final String name;
+  final String operation;
 
   @override
   Widget build(BuildContext context) {

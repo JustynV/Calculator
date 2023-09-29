@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ClearButton extends StatelessWidget {
-  OperationController opController = Get.find();
+  final OperationController opController = Get.find();
+
+  ClearButton({super.key});
 
   Widget build(BuildContext context) {
     return Container(

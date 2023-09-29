@@ -10,11 +10,11 @@ class UserPage extends StatelessWidget {
   @override
   UserPage({super.key});
 
-  OperationController operationController = Get.find();
+  final OperationController operationController = Get.find();
 
-  UserController userController = Get.find();
+  final UserController userController = Get.find();
 
-  AuthenticationController authenticationController = Get.find();
+  final AuthenticationController authenticationController = Get.find();
 
   _logout() async {
     try {
@@ -41,13 +41,9 @@ class UserPage extends StatelessWidget {
                   key: Key("welcomeMessage"),
                   "Bienvenido",
                   style: TextStyle(fontSize: 32.0)),
-
-              Obx(() => Text(
-                  key: Key("diffMessage"),
-                  "Nivel de dificultad actual: ${operationController.difficulty.value}",
-                  style: TextStyle(fontSize: 20.0, color: Colors.blueGrey))),
-
-
+              Text(
+                  "Nivel de dificultad actual: ${operationController.getDifficulty()}",
+                  style: TextStyle(fontSize: 20.0, color: Colors.blueGrey)),
               goButton("Suma", "+"),
               goButton("Resta", "-"),
               goButton("Multiplicación", "*"),
