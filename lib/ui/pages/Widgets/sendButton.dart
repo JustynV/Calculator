@@ -7,9 +7,9 @@ class SendButton extends StatelessWidget {
   SendButton({super.key, required this.a, required this.b, required this.operation, });
   final OperationController opController = Get.find();
 
-  String a;
-  String b;
-  String operation;
+  final String a;
+  final String b;
+  final String operation;
 
   @override
   Widget build(BuildContext context) {

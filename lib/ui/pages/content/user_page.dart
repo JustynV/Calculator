@@ -41,9 +41,10 @@ class UserPage extends StatelessWidget {
                   key: Key("welcomeMessage"),
                   "Bienvenido",
                   style: TextStyle(fontSize: 32.0)),
-              Text(
+                  
+              Obx(() => Text(
                   "Nivel de dificultad actual: ${operationController.getDifficulty()}",
-                  style: TextStyle(fontSize: 20.0, color: Colors.blueGrey)),
+                  style: const TextStyle(fontSize: 20.0, color: Colors.blueGrey))),
               goButton("Suma", "+"),
               goButton("Resta", "-"),
               goButton("Multiplicación", "*"),
