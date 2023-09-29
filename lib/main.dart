@@ -2,6 +2,7 @@ import 'package:f_web_authentication/domain/use_case/operation_usercase.dart';
 import 'package:f_web_authentication/domain/use_case/user_usecase.dart';
 import 'package:f_web_authentication/ui/central.dart';
 import 'package:f_web_authentication/ui/controller/authentication_controller.dart';
+import 'package:f_web_authentication/ui/controller/input_controller.dart';
 import 'package:f_web_authentication/ui/controller/operation_controller.dart';
 import 'package:f_web_authentication/ui/controller/user_controller.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ void main() {
   Get.put(UserUseCase());
   Get.put(OperationUsercase());
   Get.put(OperationController());
+  Get.put(InputController());
   Get.put(AuthenticationController());
   Get.put(UserController());
   runApp(const MyApp());

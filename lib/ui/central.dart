@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'pages/authentication/login_page.dart';
-import 'pages/content/UserPage.dart';
+import 'pages/content/user_page.dart';
 
 class Central extends StatelessWidget {
   const Central({super.key});

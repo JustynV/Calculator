@@ -1,11 +1,13 @@
+import 'package:f_web_authentication/ui/controller/input_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class NumberButton extends StatelessWidget {
 
   String number;
-  Function setInput;
-  NumberButton(this.number, this.setInput);
-  
+  NumberButton(this.number);
+  InputController inputController = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -13,7 +15,7 @@ class NumberButton extends StatelessWidget {
       height: 80,
         child: ElevatedButton(
       onPressed: () {
-        setInput(this.number);
+        inputController.updateInput(this.number);
       },
       child: Text(
         number,

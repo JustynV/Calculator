@@ -1,15 +1,16 @@
-import 'package:f_web_authentication/ui/controller/operation_controller.dart';
-import 'package:f_web_authentication/ui/pages/content/ProblemPage.dart';
+import 'package:f_web_authentication/ui/pages/content/problem_page.dart';
 import 'package:flutter/material.dart';
 
+import '../content/problem_page.dart';
+
+// ignore: must_be_immutable
 class goButton extends StatelessWidget {
   @override
-  goButton(this.name, this.setDifficulty, this.opController, this.operation);
+  goButton(this.name, this.operation);
   String name;
   String operation;
-  OperationController opController;
-  Function setDifficulty;
 
+  @override
   Widget build(BuildContext context) {
     return Container(
         width: 250,
