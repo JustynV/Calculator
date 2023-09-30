@@ -46,8 +46,7 @@ class ProblemPage extends StatelessWidget {
                 stream: opController.tries.stream,
                 builder: (context, snapshot) {
                   if (snapshot.data == 0) {
-                    opController.setDifficulty(opController.correct.value);
-                    Navigator.pop(context);
+                    Navigator.pop(context,opController.correct.value);
                   }
                   return Container();
                 },
