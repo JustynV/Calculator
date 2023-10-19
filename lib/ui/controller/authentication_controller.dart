@@ -1,4 +1,5 @@
 import 'package:f_web_authentication/domain/use_case/authentication_usecase.dart';
+import 'package:f_web_authentication/domain/use_case/user_usecase.dart';
 import 'package:get/get.dart';
 
 import 'package:loggy/loggy.dart';
@@ -9,11 +10,12 @@ class AuthenticationController extends GetxController {
   final logged = false.obs;
   bool get isLogged => logged.value;
 
-  Future<void> Login(email, password) async {
+  Future<bool> login(email, password) async {
     final AuthenticationUseCase authentication = Get.find();
     logInfo('Controller logging in');
     await authentication.login(email, password);
     logged.value = true;
+    return logged.value;
   }
 
   Future<bool> signUp(User user) async {
@@ -30,5 +32,10 @@ class AuthenticationController extends GetxController {
   Future<bool> verifyEmail(String value) async{
     final AuthenticationUseCase authentication = Get.find();
     return await authentication.verifyEmail(value);
+  }
+
+  Future<User> getUser(String theEmail, String thePassword) async {
+    final UserUseCase authentication = Get.find();
+    return await authentication.getUser(theEmail, thePassword);
   }
 }

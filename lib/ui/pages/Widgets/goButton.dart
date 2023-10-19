@@ -5,30 +5,29 @@ import 'package:get/get.dart';
 
 class GoButton extends StatelessWidget {
   @override
-  GoButton(this.name, this.operation);
+  GoButton(this.name, this.operation, {super.key});
   final String name;
   final String operation;
   final OperationController opController = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
         width: 250,
         height: 80,
         child: ElevatedButton(
           onPressed: () async {
-            final result = await Navigator.push(
+            Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => ProblemPage(
                         operation: operation,
                       )),
             );
-            opController.setDifficulty(int.parse(result.toString()));
           },
           child: Text(
             name,
-            style: TextStyle(fontSize: 32.0),
+            style: const TextStyle(fontSize: 32.0),
           ),
         ));
   }

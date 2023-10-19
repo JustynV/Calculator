@@ -2,13 +2,14 @@ import 'package:f_web_authentication/ui/controller/operation_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ClearButton extends StatelessWidget {
+class clearButton extends StatelessWidget {
   final OperationController opController = Get.find();
 
-  ClearButton({super.key});
+  clearButton({super.key});
 
+  @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
             width: 80,
       height: 80,
         child: ElevatedButton(
@@ -16,7 +17,7 @@ class ClearButton extends StatelessWidget {
       onPressed: () {
        opController.resetInput();
       },
-      child: Text(
+      child: const Text(
         "C",
         style: TextStyle(fontSize: 32.0),
       ),

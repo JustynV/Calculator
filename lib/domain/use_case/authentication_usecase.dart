@@ -20,4 +20,5 @@ class AuthenticationUseCase {
   Future<bool> verifyEmail(String value) async{
     return await _repository.verifyEmail(value);
   }
+
 }

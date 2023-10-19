@@ -1,4 +1,5 @@
 import 'package:f_web_authentication/domain/models/user.dart';
+import 'package:f_web_authentication/ui/controller/user_controller.dart';
 import 'package:f_web_authentication/ui/pages/content/user_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,13 +18,25 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final controllerEmail = TextEditingController(text: 'a@a.com');
   final controllerPassword = TextEditingController(text: '123456');
-  late User user;
   AuthenticationController authenticationController = Get.find();
+  UserController userController = Get.find();
 
   _login(theEmail, thePassword) async {
     logInfo('_login $theEmail $thePassword');
     try {
-      await authenticationController.Login(theEmail, thePassword);
+      //User user = await authenticationController.getUser(theEmail, thePassword);
+      bool a = await authenticationController.login(theEmail, thePassword);
+        //userController.setUser(user);
+      if(a){
+                Get.to(UserPage());
+      }else{
+        Get.snackbar(
+        "Login",
+        "Revise usuario y/o contraseña",
+        icon: const Icon(Icons.person, color: Colors.red),
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      }
     } catch (err) {
       Get.snackbar(
         "Login",
@@ -91,15 +104,12 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     OutlinedButton(
                         onPressed: () async {
-                          // this line dismiss the keyboard by taking away the focus of the TextFormField and giving it to an unused
                           FocusScope.of(context).requestFocus(FocusNode());
                           final form = _formKey.currentState;
                           form!.save();
                           if (_formKey.currentState!.validate()) {
-                            if(await _login(
-                                controllerEmail.text, controllerPassword.text)){
-                                  Get.to(UserPage(user: user,));
-                                };
+                            await _login(
+                                controllerEmail.text, controllerPassword.text);
                           }
                         },
                         child: const Text("Submit")),

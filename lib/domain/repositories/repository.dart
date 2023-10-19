@@ -35,4 +35,8 @@ class Repository {
       return await _historialDatasource.addHistorial(historial);
   }
 
+  getUser(String theEmail, String thePassword)  async {
+      return await _userDatasource.getUser(theEmail, thePassword);
+    }
+
 }

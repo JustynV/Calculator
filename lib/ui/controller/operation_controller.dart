@@ -10,6 +10,7 @@ class OperationController extends GetxController {
 
   RxString input = "0".obs;
   RxInt correct = 0.obs;
+  RxList correctList = [].obs;
   RxInt difficulty = 1.obs;
   RxInt tries = 6.obs;
   OperationUsecase opUsercase = Get.find();
@@ -19,6 +20,7 @@ class OperationController extends GetxController {
     correct.value = 0;
     tries.value = 6;
     input.value = "0";
+    correctList.value = [];
   }
 
   void setDifficulty(int correct) {
@@ -61,7 +63,9 @@ class OperationController extends GetxController {
   }
 
   void updateCorrect(int a, int b, String operation) {
-    correct.value += checkAnswer(a, b, operation);
+    int result = checkAnswer(a, b, operation);
+    correct.value += result;
+    correctList[6-tries.value].value = result;
     tries.value -= 1;
     resetInput();
   }

@@ -13,7 +13,7 @@ class SendButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 80,
       height: 80,
         child: ElevatedButton(
@@ -21,7 +21,7 @@ class SendButton extends StatelessWidget {
       onPressed: () {
         opController.updateCorrect(int.parse(a), int.parse(b), operation);
       },
-      child: Text(
+      child: const Text(
         "GO",
         style: TextStyle(fontSize: 32.0),
       ),

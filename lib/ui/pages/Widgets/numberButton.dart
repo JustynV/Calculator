@@ -10,7 +10,7 @@ class NumberButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 80,
       height: 80,
         child: ElevatedButton(
@@ -19,7 +19,7 @@ class NumberButton extends StatelessWidget {
       },
       child: Text(
         number,
-        style: TextStyle(fontSize: 32.0),
+        style: const TextStyle(fontSize: 32.0),
       ),
     ));
   }

@@ -1,20 +1,19 @@
 import 'package:f_web_authentication/ui/controller/authentication_controller.dart';
 import 'package:f_web_authentication/ui/controller/operation_controller.dart';
+import 'package:f_web_authentication/ui/controller/user_controller.dart';
 import 'package:f_web_authentication/ui/pages/Widgets/goButton.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
 
-import '../../../domain/models/user.dart';
-
 class UserPage extends StatelessWidget {
   @override
-  UserPage({super.key, required this.user});
+  UserPage({super.key});
 
   final OperationController operationController = Get.find();
   final AuthenticationController authenticationController = Get.find();
-  final User user;
-  
+  final UserController userController = Get.find();
+
   _logout() async {
     try {
       await authenticationController.logOut();
@@ -23,6 +22,7 @@ class UserPage extends StatelessWidget {
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: const Text("Calculadora"), actions: [
@@ -36,7 +36,7 @@ class UserPage extends StatelessWidget {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-              Text(
+              const Text(
                   key: Key("welcomeMessage"),
                   "Bienvenido",
                   style: TextStyle(fontSize: 32.0)),         
