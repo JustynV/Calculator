@@ -1,43 +1,38 @@
-import 'package:f_web_authentication/data/datasources/remote/authentication_datasource.dart';
+
+import 'package:f_web_authentication/data/datasources/remote/historial_datasource.dart';
+import 'package:f_web_authentication/domain/models/historial.dart';
+import 'package:loggy/loggy.dart';
 
 import '../../data/datasources/remote/user_datasource.dart';
 import '../models/user.dart';
 
 class Repository {
-  late AuthenticationDatatasource _authenticationDataSource;
-  late UserDataSource _userDatatasource;
-  String token = "";
-
-  // the base url of the API should end without the /
-  final String _baseUrl =
-      "http://ip172-18-0-8-ck0susksnmng00a9sdtg-8000.direct.labs.play-with-docker.com";
+  late UserDataSource _userDatasource;
+  late HistorialDataSource _historialDatasource;
 
   Repository() {
-    _authenticationDataSource = AuthenticationDatatasource();
-    _userDatatasource = UserDataSource();
+    _userDatasource = UserDataSource();
   }
 
-  Future<bool> login(String email, String password) async {
-    token = await _authenticationDataSource.login(_baseUrl, email, password);
-    return true;
+  Future<bool> login(String email, String password) async =>
+     await _userDatasource.login(email, password);
+
+  Future<bool> signUp(User user) async {
+    logInfo("Repository Sign Up");
+    return await _userDatasource.signUp(user);
   }
-
-  Future<bool> signUp(String email, String password) async =>
-      await _authenticationDataSource.signUp(_baseUrl, email, password);
-
-  Future<bool> logOut() async => await _authenticationDataSource.logOut();
-
-  Future<List<User>> getUsers() async => await _userDatatasource.getUsers();
-
-  Future<bool> addUser(User user) async =>
-      await _userDatatasource.addUser(user);
 
   Future<bool> updateUser(User user) async =>
-      await _userDatatasource.updateUser(user);
+    await _userDatasource.updateUser(user);
 
-  Future<bool> deleteUser(int id) async =>
-      await _userDatatasource.deleteUser(id);
+  Future<bool> logOut() async => await _userDatasource.logOut();
 
-  Future<bool> simulateProcess() async =>
-      await _userDatatasource.simulateProcess(_baseUrl, token);
+  Future<bool> verifyEmail(String value) async {
+      return await _userDatasource.verifyEmail(value);
+  }
+
+  Future<bool> addHistorial(Historial historial) async {
+      return await _historialDatasource.addHistorial(historial);
+  }
+
 }

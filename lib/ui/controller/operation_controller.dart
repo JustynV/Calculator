@@ -1,7 +1,9 @@
 import 'dart:math';
 
-import 'package:f_web_authentication/domain/use_case/operation_usercase.dart';
+import 'package:f_web_authentication/domain/models/historial.dart';
+import 'package:f_web_authentication/domain/use_case/operation_usecase.dart';
 import 'package:get/get.dart';
+import 'package:loggy/loggy.dart';
 
 class OperationController extends GetxController {
   OperationController();
@@ -10,7 +12,7 @@ class OperationController extends GetxController {
   RxInt correct = 0.obs;
   RxInt difficulty = 1.obs;
   RxInt tries = 6.obs;
-  OperationUsercase opUsercase = Get.find();
+  OperationUsecase opUsercase = Get.find();
   var rng = Random();
 
   void init() {
@@ -90,5 +92,12 @@ class OperationController extends GetxController {
         return 0;
     }
     return 0;
+  }
+
+  Future<bool> addHistorial(Historial historial) async {
+    final OperationUsecase operation = Get.find();
+    logInfo('Controller Sign Up');
+    await operation.addHistorial(historial);
+    return true;
   }
 }

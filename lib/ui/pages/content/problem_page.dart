@@ -1,4 +1,7 @@
 
+import 'package:f_web_authentication/domain/models/historial.dart';
+import 'package:f_web_authentication/domain/models/user.dart';
+import 'package:f_web_authentication/ui/controller/authentication_controller.dart';
 import 'package:f_web_authentication/ui/controller/operation_controller.dart';import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -7,15 +10,19 @@ import '../Widgets/sendButton.dart';
 import '../Widgets/numberButton.dart';
 
 class ProblemPage extends StatelessWidget {
-  ProblemPage({super.key, required this.operation});
+  ProblemPage({super.key, required this.operation, required this.user});
 
   final String operation;
 
   final OperationController opController = Get.find();
+  final AuthenticationController authController = Get.find();
+  final User user;
+
 
   final time = Stopwatch()..start();
 
   List operations = [];
+  List ans = [];
 
   String getData() {
     if (opController.tries.value > 0) {
@@ -46,6 +53,18 @@ class ProblemPage extends StatelessWidget {
                 stream: opController.tries.stream,
                 builder: (context, snapshot) {
                   if (snapshot.data == 0) {
+                    Stopwatch().stop();
+                    opController.addHistorial(
+                      Historial(
+                      q1: ans[0], 
+                      q2: ans[1], 
+                      q3: ans[2], 
+                      q4: ans[3], 
+                      q5: ans[4],
+                      q6: ans[5], 
+                      time: time.elapsed.toString(), 
+                      difficulty: opController.getDifficulty.toString(),
+                      userID: user.id.toString()));
                     Navigator.pop(context,opController.correct.value);
                   }
                   return Container();
@@ -101,6 +120,9 @@ class ProblemPage extends StatelessWidget {
                         style: const TextStyle(fontSize: 20.0))),
                     Obx(() => Text(
                         "Respuestas correctas : ${opController.correct.value.toString()}",
+                        style: const TextStyle(fontSize: 20.0))),
+                    Obx(() => Text(
+                        "Tiempo transcurrido : ${time.elapsed.toString()}",
                         style: const TextStyle(fontSize: 20.0)))
                   ])),
         ),

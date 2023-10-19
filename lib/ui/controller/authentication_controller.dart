@@ -3,23 +3,23 @@ import 'package:get/get.dart';
 
 import 'package:loggy/loggy.dart';
 
-class AuthenticationController extends GetxController {
-  final logged = true.obs;
-  String user = "test";
+import '../../domain/models/user.dart';
 
+class AuthenticationController extends GetxController {
+  final logged = false.obs;
   bool get isLogged => logged.value;
 
-  Future<void> login(email, password) async {
+  Future<void> Login(email, password) async {
     final AuthenticationUseCase authentication = Get.find();
+    logInfo('Controller logging in');
     await authentication.login(email, password);
     logged.value = true;
-    user = email;
   }
 
-  Future<bool> signUp(email, password) async {
+  Future<bool> signUp(User user) async {
     final AuthenticationUseCase authentication = Get.find();
     logInfo('Controller Sign Up');
-    await authentication.signUp(email, password);
+    await authentication.signUp(user);
     return true;
   }
 
@@ -27,7 +27,8 @@ class AuthenticationController extends GetxController {
     logged.value = false;
   }
 
-  String getUser(){
-    return user;
+  Future<bool> verifyEmail(String value) async{
+    final AuthenticationUseCase authentication = Get.find();
+    return await authentication.verifyEmail(value);
   }
 }

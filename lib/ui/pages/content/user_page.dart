@@ -1,21 +1,20 @@
 import 'package:f_web_authentication/ui/controller/authentication_controller.dart';
 import 'package:f_web_authentication/ui/controller/operation_controller.dart';
-import 'package:f_web_authentication/ui/controller/user_controller.dart';
 import 'package:f_web_authentication/ui/pages/Widgets/goButton.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
 
+import '../../../domain/models/user.dart';
+
 class UserPage extends StatelessWidget {
   @override
-  UserPage({super.key});
+  UserPage({super.key, required this.user});
 
   final OperationController operationController = Get.find();
-
-  final UserController userController = Get.find();
-
   final AuthenticationController authenticationController = Get.find();
-
+  final User user;
+  
   _logout() async {
     try {
       await authenticationController.logOut();
