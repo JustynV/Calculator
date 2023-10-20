@@ -6,7 +6,7 @@ import '../../../domain/models/user.dart';
 import 'package:http/http.dart' as http;
 
 class UserDataSource {
-  final String apiKey = 'MQeQ4Q';
+  final String apiKey = 'KDXWdj';
 
   Future<bool> signUp(User user) async {
     logInfo("Web service, Adding user");

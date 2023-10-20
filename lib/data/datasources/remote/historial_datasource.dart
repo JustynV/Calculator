@@ -4,7 +4,7 @@ import '../../../domain/models/historial.dart';
 import 'package:http/http.dart' as http;
 
 class HistorialDataSource {
-  final String apiKey = '929Vpx';
+  final String apiKey = '3QpKXm';
 
   Future<bool> addHistorial(Historial historial) async {
      logInfo("Web service, Adding historial");

@@ -57,5 +57,4 @@ class AuthenticationController extends GetxController {
 
   Future<void> logOut() async {
     logged.value = false;
-  }
-}
+  }}

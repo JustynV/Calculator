@@ -1,21 +1,27 @@
-
 import 'package:connectivity/connectivity.dart';
 import 'package:get/get.dart';
 
 class ConnectionController extends GetxController {
-      ConnectionController();
+  ConnectionController();
 
   RxBool connectivity = false.obs;
-  
+  final Rx<ConnectivityResult> connectionStatus = ConnectivityResult.none.obs;
+
   bool get isConnected => connectivity.value;
 
+  @override
+  void onInit() {
+    super.onInit();
+    Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+      connectionStatus.value = result;
+    });
+  }
+
   Future<void> checkConnection() async {
-    var connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.none) {
+    if (connectionStatus.value  == ConnectivityResult.none) {
       connectivity.value = false;
-    }else{
+    } else {
       connectivity.value = true;
     }
   }
-  
 }

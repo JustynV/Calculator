@@ -8,8 +8,6 @@ import 'pages/content/user_page.dart';
 
 class Central extends StatelessWidget {
   const Central({super.key});
- 
-
 
   @override
   Widget build(BuildContext context) {
