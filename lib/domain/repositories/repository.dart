@@ -14,8 +14,11 @@ class Repository {
     _userDatasource = UserDataSource();
   }
 
-  Future<bool> login(String email, String password) async =>
-     await _userDatasource.login(email, password);
+  Future<bool> login(String email, String password) async{
+    logInfo("Repository Logging In");
+    return await _userDatasource.login(email, password);
+  }
+
 
   Future<bool> signUp(User user) async {
     logInfo("Repository Sign Up");

@@ -1,6 +1,7 @@
-import 'package:f_web_authentication/domain/models/historial.dart';
 import 'package:f_web_authentication/ui/controller/operation_controller.dart';
 import 'package:f_web_authentication/ui/controller/user_controller.dart';
+import 'package:f_web_authentication/ui/pages/content/historial_page.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,17 +17,17 @@ class ProblemPage extends StatelessWidget {
   final OperationController opController = Get.find();
   final UserController userController = Get.find();
 
-  final time = Stopwatch()..start();
+  Stopwatch time = Stopwatch()..start();
 
-   List operations = [];
+  List operations = [];
 
   String getData() {
-    if (opController.tries.value > 0) {
-      return operations[opController.tries.value - 1][0] +
+    if (opController.getTries > 0) {
+      return operations[opController.getTries - 1][0] +
           "  " +
           operation +
           "  " +
-          operations[opController.tries.value - 1][1];
+          operations[opController.getTries - 1][1];
     }
     return "";
   }
@@ -50,23 +51,13 @@ class ProblemPage extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.data == 0) {
               Stopwatch().stop();
-              opController.addHistorial(Historial(
-                  q1: opController.correctList[0].value,
-                  q2: opController.correctList[1].value,
-                  q3: opController.correctList[2].value,
-                  q4: opController.correctList[3].value,
-                  q5: opController.correctList[4].value,
-                  q6: opController.correctList[5].value,
-                  time: time.elapsed.toString(),
-                  difficulty: opController.getDifficulty.toString(),
-                  userID: "1"));
-              opController.setDifficulty(opController.correct.value);
-              Navigator.pop(context);
+              opController.time.value = time.elapsed.inSeconds;
+              Get.to(HistorialPage());
             }
             return Container();
           },
         ),
-        Obx(() => Text("${getData()} = ${opController.input.value}",
+        Obx(() => Text("${getData()} = ${opController.getInput}",
             style: const TextStyle(fontSize: 64.0))),
         Expanded(
           flex: 3,
@@ -105,21 +96,18 @@ class ProblemPage extends StatelessWidget {
                         NumberButton("0"),
                         clearButton(),
                         Obx(() => SendButton(
-                              a: operations[opController.tries.value - 1][0],
-                              b: operations[opController.tries.value - 1][1],
+                              a: operations[opController.getTries - 1][0],
+                              b: operations[opController.getTries - 1][1],
                               operation: operation,
                             )),
                       ],
                     ),
                     Obx(() => Text(
-                        "Ejercicios restantes: ${opController.tries.value}",
+                        "Ejercicios restantes: ${opController.getTries}",
                         style: const TextStyle(fontSize: 20.0))),
                     Obx(() => Text(
-                        "Respuestas correctas : ${opController.correct.value.toString()}",
+                        "Respuestas correctas : ${opController.getCorrects}",
                         style: const TextStyle(fontSize: 20.0))),
-                    Obx(() => Text(
-                        "Tiempo transcurrido : ${time.elapsed.toString()}",
-                        style: const TextStyle(fontSize: 20.0)))
                   ])),
         ),
       ])),

@@ -21,17 +21,12 @@ class _FirebaseSignUpState extends State<SignUp> {
   final controllerSchool = TextEditingController(text: "Columbo");
   final controllerGrade = TextEditingController(text: "11");
   final controllerBirth = TextEditingController();
-
   AuthenticationController authenticationController = Get.find();
-
-  verifyEmail(String value) async {
-    return await authenticationController.verifyEmail(value);
-  }
 
   _signup(user) async {
     try {
       await authenticationController.signUp(user);
-
+      Get.back();
       Get.snackbar(
         "Sign Up",
         'OK',
@@ -98,15 +93,12 @@ class _FirebaseSignUpState extends State<SignUp> {
                           decoration:
                               const InputDecoration(labelText: "Email address"),
                           validator: (value) {
-                            logInfo(value);
-                            if (value == null || value.isEmpty) {
+                            if (value == null||value.isEmpty) {
                               logError('SignUp validation empty email');
                               return "Enter email";
                             } else if (!value.contains('@')) {
                               logError('SignUp validation invalid email');
                               return "Enter valid email address";
-                            } else if (verifyEmail(value)) {
-                              return "Email is already in use";
                             }
                             return null;
                           },
@@ -152,21 +144,27 @@ class _FirebaseSignUpState extends State<SignUp> {
                           },
                         ),
                         TextFormField(
-                            controller: controllerBirth,
-                            decoration:
-                                const InputDecoration(labelText: "Birth Date"),
-                            onTap: () async {
-                              DateTime? pickedDate = await showDatePicker(
-                                  context: context,
-                                  initialDate: DateTime.now(),
-                                  firstDate: DateTime(1900),
-                                  lastDate: DateTime(2100));
-
-                              if (pickedDate != null) {
-                                controllerBirth.text =
-                                    DateFormat('yyyy-MM-dd').format(pickedDate);
-                              }
-                            }),
+                          controller: controllerBirth,
+                          decoration:
+                              const InputDecoration(labelText: "Birth Date"),
+                          onTap: () async {
+                            DateTime? pickedDate = await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(1900),
+                                lastDate: DateTime.now());
+                            if (pickedDate != null) {
+                              controllerBirth.text =
+                                  DateFormat('yyyy-MM-dd').format(pickedDate);
+                            }
+                          },
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Enter Date of Birth";
+                            }
+                            return null;
+                          },
+                        ),
                         const SizedBox(
                           height: 20,
                         ),
@@ -185,11 +183,10 @@ class _FirebaseSignUpState extends State<SignUp> {
                                     grade: controllerGrade.text,
                                     bdate: controllerBirth.text,
                                     password: controllerPassword.text,
-                                    difficulty:"1"));
+                                    difficulty: "1"));
                               } else {
                                 logError('SignUp validation form nok');
                               }
-                              Get.back();
                             },
                             child: const Text("Submit")),
                       ]),

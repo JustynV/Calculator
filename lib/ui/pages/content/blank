@@ -1,0 +1,12 @@
+  class HistorialPage extends StatelessWidget {
+  HistorialPage({super.key, required this.operation});}
+  
+  @override
+  Widget build(BuildContext context) {
+    initOP();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Resultados"),
+      ),
+      body: Center(
+          child: Column(children: [])))}

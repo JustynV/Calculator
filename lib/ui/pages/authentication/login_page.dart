@@ -24,10 +24,11 @@ class _LoginPageState extends State<LoginPage> {
   _login(theEmail, thePassword) async {
     logInfo('_login $theEmail $thePassword');
     try {
-      //User user = await authenticationController.getUser(theEmail, thePassword);
+
       bool a = await authenticationController.login(theEmail, thePassword);
-        //userController.setUser(user);
       if(a){
+        User user = await authenticationController.getUser(theEmail, thePassword);
+        userController.setUser(user);
                 Get.to(UserPage());
       }else{
         Get.snackbar(

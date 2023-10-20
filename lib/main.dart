@@ -17,14 +17,13 @@ void main() {
       showColors: true,
     ),
   );
-
   Get.put(Repository());
+  Get.put(OperationUsecase());
   Get.put(AuthenticationController());
   Get.put(AuthenticationUseCase());
   Get.put(UserController());
   Get.put(UserUseCase());
   Get.put(OperationController());
-  Get.put(OperationUsecase());
   runApp(const MyApp());
 }
 

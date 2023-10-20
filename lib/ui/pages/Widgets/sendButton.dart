@@ -1,6 +1,7 @@
 import 'package:f_web_authentication/ui/controller/operation_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loggy/loggy.dart';
 
 class SendButton extends StatelessWidget {
 
@@ -19,6 +20,8 @@ class SendButton extends StatelessWidget {
         child: ElevatedButton(
         style: ElevatedButton.styleFrom(backgroundColor: Colors.amber),
       onPressed: () {
+        logInfo(a);
+        logInfo(b);
         opController.updateCorrect(int.parse(a), int.parse(b), operation);
       },
       child: const Text(

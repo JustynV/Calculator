@@ -4,10 +4,10 @@ import 'package:get/get.dart';
 class UserController extends GetxController {
   UserController();
 
-  Rx<User> user = null.obs as Rx<User>;
+  late Rx<User> user;
 
-  setUser(user){
-    user.value = user;
+  setUser(User u){
+    user.value = u;
   }
 
   User getUser() {
