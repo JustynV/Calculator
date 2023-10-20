@@ -1,6 +1,5 @@
-import 'package:f_web_authentication/domain/models/user.dart';
+import 'package:f_web_authentication/ui/controller/connection_controller.dart';
 import 'package:f_web_authentication/ui/controller/user_controller.dart';
-import 'package:f_web_authentication/ui/pages/content/user_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
@@ -19,12 +18,19 @@ class _LoginPageState extends State<LoginPage> {
   final controllerEmail = TextEditingController(text: 'a@a.com');
   final controllerPassword = TextEditingController(text: '123456');
   AuthenticationController authenticationController = Get.find();
+  ConnectionController connectionController = Get.find();
   UserController userController = Get.find();
 
   _login(theEmail, thePassword) async {
     logInfo('_login $theEmail $thePassword');
     try {
-      bool a = await authenticationController.login(theEmail, thePassword);
+      bool a;
+      if (connectionController.isConnected) {
+        a = await authenticationController.login(theEmail, thePassword);
+      } else {
+        a =
+            await authenticationController.loginLocal(theEmail, thePassword);
+      }
       if (a) {
         Get.snackbar(
           "Login",
@@ -35,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
       } else {
         Get.snackbar(
           "Login",
-          "Revise usuario y/o contraseña",
+          "Usuario no encontrado, verifique correo y/o contraseña",
           icon: const Icon(Icons.person, color: Colors.red),
           snackPosition: SnackPosition.BOTTOM,
         );

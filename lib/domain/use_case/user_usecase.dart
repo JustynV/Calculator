@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 import '../models/user.dart';
-import '../repositories/repository.dart';
+import '../repositories/repositories.dart';
 
 class UserUseCase {
-  final Repository _repository = Get.find();
+  final Repositories _repository = Get.find();
 
   UserUseCase();
 

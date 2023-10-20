@@ -1,10 +1,10 @@
 import 'package:f_web_authentication/domain/models/historial.dart';
-import 'package:f_web_authentication/domain/repositories/repository.dart';
+import 'package:f_web_authentication/domain/repositories/repositories.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
 
 class OperationUsecase {
-  final Repository _repository = Get.find();
+  final Repositories _repository = Get.find();
 
   int setDifficulty(int difficulty, int correct) {
     if (correct >= 5) {

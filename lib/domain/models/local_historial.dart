@@ -1,8 +1,31 @@
-class Historial{
+import "package:hive/hive.dart";
+ 
 
+part "local_historial.g.dart";
 
-  Historial({
-    this.id,
+@HiveType(typeId: 0)
+class LocalHistorial extends HiveObject{
+  @HiveField(0)
+  String q1;  
+  @HiveField(1)
+  String q2;  
+  @HiveField(2)
+  String q3;  
+  @HiveField(3)
+  String q4;  
+  @HiveField(4)
+  String q5;  
+  @HiveField(5)
+  String q6;  
+  @HiveField(6)
+  String time;  
+  @HiveField(7)
+  String difficulty;  
+  @HiveField(8)
+  String userID;
+  
+
+  LocalHistorial({
     required this.q1,
     required this.q2,
     required this.q3,
@@ -14,20 +37,7 @@ class Historial{
     required this.userID
   });
 
-  int? id;
-  String q1;
-  String q2;
-  String q3;
-  String q4;
-  String q5;
-  String q6;
-  String time;
-  String difficulty;
-  String userID;
-
-
-  factory Historial.fromJson(Map<String, dynamic> json) => Historial(
-        id: json["id"],
+  factory LocalHistorial.fromJson(Map<String, dynamic> json) => LocalHistorial(
         q1: json["Question1"],
         q2: json["Question2"],
         q3: json["Question3"],
@@ -41,7 +51,6 @@ class Historial{
 
 
     Map<String, dynamic> toJson() => {
-        "id": id ?? 0,
         "Question1": q1,
         "Question2": q2,
         "Question3": q3,

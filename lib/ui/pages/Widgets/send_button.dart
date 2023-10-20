@@ -23,6 +23,8 @@ class SendButton extends StatelessWidget {
       onPressed: () {
         opController.updateCorrect(int.parse(a), int.parse(b), operation);
         if(opController.tries.value == 0){
+          opController.watch.stop();
+          opController.setTime(opController.getTime);
           Get.off(HistorialPage());
         }
       },

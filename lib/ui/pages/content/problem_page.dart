@@ -1,4 +1,5 @@
 import 'package:f_web_authentication/ui/controller/operation_controller.dart';
+import 'package:f_web_authentication/ui/controller/user_controller.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,9 +15,7 @@ class ProblemPage extends StatelessWidget {
   final String operation;
 
   final OperationController opController = Get.find();
-
-  final Stopwatch time = Stopwatch()..start();
-
+  final UserController userController = Get.find();
   List operations = [];
 
   String getData() {

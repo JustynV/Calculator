@@ -13,6 +13,7 @@ class UserPage extends StatelessWidget {
   final OperationController operationController = Get.find();
   final AuthenticationController authenticationController = Get.find();
   final UserController userController = Get.find();
+
   _logout() async {
     try {
       await authenticationController.logOut();
@@ -23,8 +24,11 @@ class UserPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    operationController.setDiff(userController.gdificulty);
     return Scaffold(
-        appBar: AppBar(title: const Text("Calculadora"), actions: [
+        appBar:
+          AppBar(leading: null, 
+          title: const Text("Calculadora"), actions: [
           IconButton(
               icon: const Icon(Icons.exit_to_app),
               onPressed: () {
@@ -37,11 +41,12 @@ class UserPage extends StatelessWidget {
                 children: [
               Obx(() => Text(
                   key: const Key("welcomeMessage"),
-                   "Bienvenido ${userController.getName()}",
-                  style: const TextStyle(fontSize: 32.0))),         
+                  "Bienvenido ${userController.gFname}",
+                  style: const TextStyle(fontSize: 32.0))),
               Obx(() => Text(
-                  "Nivel de dificultad actual: ${userController.getDifficulty()}",
-                  style: const TextStyle(fontSize: 20.0, color: Colors.blueGrey))),
+                  "Nivel de dificultad actual: ${userController.gdificulty}",
+                  style:
+                      const TextStyle(fontSize: 20.0, color: Colors.blueGrey))),
               GoButton("Suma", "+"),
               GoButton("Resta", "-"),
               GoButton("Multiplicación", "*"),

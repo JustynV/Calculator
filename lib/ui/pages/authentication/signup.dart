@@ -1,4 +1,6 @@
+import 'package:f_web_authentication/domain/models/local_user.dart';
 import 'package:f_web_authentication/domain/models/user.dart';
+import 'package:f_web_authentication/ui/controller/connection_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
@@ -22,10 +24,42 @@ class _FirebaseSignUpState extends State<SignUp> {
   final controllerGrade = TextEditingController(text: "11");
   final controllerBirth = TextEditingController();
   AuthenticationController authenticationController = Get.find();
+  ConnectionController connectionController = Get.find();
+  Future<bool> validateEmail(String value) async {
+    return authenticationController.verifyEmail(value);
+  }
+
+  userCreate() {
+    if (connectionController.isConnected) {
+      return User(
+          firstName: controllerFname.text,
+          lastName: controllerLname.text,
+          email: controllerEmail.text,
+          school: controllerSchool.text,
+          grade: controllerGrade.text,
+          bdate: controllerBirth.text,
+          password: controllerPassword.text,
+          difficulty: "1");
+    }else{
+      return LocalUser(
+          firstName: controllerFname.text,
+          lastName: controllerLname.text,
+          email: controllerEmail.text,
+          school: controllerSchool.text,
+          grade: controllerGrade.text,
+          bdate: controllerBirth.text,
+          password: controllerPassword.text,
+          difficulty: "1");
+    }
+  }
 
   _signup(user) async {
     try {
-      await authenticationController.signUp(user);
+      if (connectionController.isConnected) {
+        await authenticationController.signUp(user);
+      } else {
+        await authenticationController.signUpLocal(user);
+      }
       Get.back();
       Get.snackbar(
         "Sign Up",
@@ -88,21 +122,20 @@ class _FirebaseSignUpState extends State<SignUp> {
                           },
                         ),
                         TextFormField(
-                          keyboardType: TextInputType.emailAddress,
-                          controller: controllerEmail,
-                          decoration:
-                              const InputDecoration(labelText: "Email address"),
-                          validator: (value) {
-                            if (value == null||value.isEmpty) {
-                              logError('SignUp validation empty email');
-                              return "Enter email";
-                            } else if (!value.contains('@')) {
-                              logError('SignUp validation invalid email');
-                              return "Enter valid email address";
-                            }
-                            return null;
-                          },
-                        ),
+                            keyboardType: TextInputType.emailAddress,
+                            controller: controllerEmail,
+                            decoration: const InputDecoration(
+                                labelText: "Email address"),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                logError('SignUp validation empty email');
+                                return "Enter email";
+                              } else if (!value.contains('@')) {
+                                logError('SignUp validation invalid email');
+                                return "Enter valid email address";
+                              }
+                              return null;
+                            }),
                         TextFormField(
                           controller: controllerPassword,
                           decoration:
@@ -140,6 +173,9 @@ class _FirebaseSignUpState extends State<SignUp> {
                             if (value!.isEmpty) {
                               return "Enter grade";
                             }
+                            if (int.parse(value) < 0 || int.parse(value) > 11) {
+                              return "Enter a valid grade";
+                            }
                             return null;
                           },
                         ),
@@ -174,16 +210,21 @@ class _FirebaseSignUpState extends State<SignUp> {
                               form!.save();
                               FocusScope.of(context).requestFocus(FocusNode());
                               if (_formKey.currentState!.validate()) {
+                                bool validate =
+                                    await validateEmail(controllerEmail.text);
+                                logInfo(validate);
+                                if (!validate) {
+                                  await _signup(userCreate());
+                                } else {
+                                  Get.snackbar(
+                                    "Sign Up",
+                                    "Email address already in use",
+                                    icon: const Icon(Icons.person,
+                                        color: Colors.red),
+                                    snackPosition: SnackPosition.BOTTOM,
+                                  );
+                                }
                                 logInfo('SignUp validation form ok');
-                                await _signup(User(
-                                    firstName: controllerFname.text,
-                                    lastName: controllerLname.text,
-                                    email: controllerEmail.text,
-                                    school: controllerSchool.text,
-                                    grade: controllerGrade.text,
-                                    bdate: controllerBirth.text,
-                                    password: controllerPassword.text,
-                                    difficulty: "1"));
                               } else {
                                 logError('SignUp validation form nok');
                               }

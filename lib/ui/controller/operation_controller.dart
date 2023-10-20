@@ -15,27 +15,36 @@ class OperationController extends GetxController {
   RxInt tries = 6.obs;
   RxInt time = 0.obs;
   OperationUsecase opUsercase = Get.find();
+  var watch = Stopwatch();
   var rng = Random();
 
   int get getTries => tries.value>0?tries.value : 1;
   String get getInput => input.value;
   String get getCorrects => correct.value.toString();
   List get getCorrectLista => correctList;
-  int get getTime => time.value;
+  int get getTime => watch.elapsed.inSeconds;
+  String get getDifficulty => difficulty.value.toString();
+
 
   void init() {
     correct.value = 0;
     tries.value = 6;
     input.value = "0";
     correctList.value = [];
+    watch = Stopwatch();
+    watch.start();
   }
 
   void setDifficulty(int correct) {
     difficulty.value = opUsercase.setDifficulty(difficulty.value, correct);
   }
+  
+  void setDiff(String userDiff){
+    difficulty.value = int.parse(userDiff);
+  }
 
-  int getDifficulty() {
-    return difficulty.value;
+  void setTime(int t){
+    time.value = t;
   }
 
   String generateNum() {

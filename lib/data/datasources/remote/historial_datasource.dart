@@ -4,7 +4,7 @@ import '../../../domain/models/historial.dart';
 import 'package:http/http.dart' as http;
 
 class HistorialDataSource {
-  final String apiKey = 'geFRFA';
+  final String apiKey = '929Vpx';
 
   Future<bool> addHistorial(Historial historial) async {
      logInfo("Web service, Adding historial");
@@ -18,7 +18,6 @@ class HistorialDataSource {
     );
 
     if (response.statusCode == 201) {
-      //logInfo(response.body);
       return Future.value(true);
     } else {
       logError("Got error code ${response.statusCode}");

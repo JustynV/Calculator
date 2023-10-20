@@ -1,5 +1,30 @@
-class User {
-  User({
+
+
+import 'package:hive/hive.dart';
+
+part "local_user.g.dart";
+
+@HiveType(typeId: 0)
+class LocalUser extends HiveObject {
+  
+  @HiveField(0)
+  String firstName;
+  @HiveField(1)
+  String lastName;
+  @HiveField(2)
+  String email;
+  @HiveField(3)
+  String school;  
+  @HiveField(4)
+  String grade;  
+  @HiveField(5)
+  String bdate;  
+  @HiveField(6)
+  String password;  
+  @HiveField(7)
+  String difficulty;
+  
+  LocalUser({
     this.id,
     required this.firstName,
     required this.lastName,
@@ -11,14 +36,8 @@ class User {
     required this.difficulty
   });
   int? id;
-  String firstName;
-  String lastName;
-  String email;
-  String school;
-  String grade;
-  String bdate;
-  String password;
-  String difficulty;
+
+
 
   String get gFname => firstName;
   String get gLname => lastName;
@@ -30,7 +49,7 @@ class User {
   String get emailAddress => email;
   String get gid => id.toString();
 
-  factory User.fromJson(Map<String, dynamic> json) => User(
+  factory LocalUser.fromJson(Map<String, dynamic> json) => LocalUser(
         id: json["id"],
         firstName: json["firstName"] ?? "somefirstName",
         lastName: json["lastName"] ?? "someLastName",
