@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:f_web_authentication/ui/controller/user_controller.dart';
 import 'package:loggy/loggy.dart';
 import '../../../domain/models/user.dart';
 import 'package:http/http.dart' as http;
@@ -49,6 +50,8 @@ class UserDataSource {
 
     if (response.statusCode == 200) {
       if (response.body.isNotEmpty) {
+        final data = json.decode(response.body);
+        UserController().setUser(User.fromJson(data[0]));
         return Future.value(true);
       } else {
         return Future.value(false);
@@ -81,25 +84,5 @@ class UserDataSource {
 
   Future<bool> logOut() async {
     return Future.value(true);
-  }
-
-  Future getUser(String theEmail, String thePassword) async {
-    final response = await http.get(
-      Uri.parse(
-          "https://retoolapi.dev/$apiKey/data?email=$theEmail&password=$thePassword"),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-    );
-
-    if (response.statusCode == 200) {
-      if (response.body.isNotEmpty) {
-        final data = json.decode(response.body);
-        return Future.value(User.fromJson(data[0]));
-      }
-    } else {
-      logError("Got error code ${response.statusCode}");
-    }
-    return null;
-  }
+  } 
 }

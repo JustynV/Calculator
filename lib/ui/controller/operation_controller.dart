@@ -17,11 +17,10 @@ class OperationController extends GetxController {
   OperationUsecase opUsercase = Get.find();
   var rng = Random();
 
-  int get getTries => tries.value;
+  int get getTries => tries.value>0?tries.value : 1;
   String get getInput => input.value;
   String get getCorrects => correct.value.toString();
   List get getCorrectLista => correctList;
-
   int get getTime => time.value;
 
   void init() {
@@ -71,12 +70,15 @@ class OperationController extends GetxController {
   }
 
   void updateCorrect(int a, int b, String operation) {
-    logInfo(a);
-    logInfo(b);
     int result = checkAnswer(a, b, operation);
     correct.value += result;
-    correctList.add(result);
+    if (result == 1) {
+      correctList.add(true);
+    } else {
+      correctList.add(false);
+    }
     tries.value -= 1;
+
     resetInput();
   }
 
@@ -110,7 +112,7 @@ class OperationController extends GetxController {
 
   Future<bool> addHistorial(Historial historial) async {
     final OperationUsecase operation = Get.find();
-    logInfo('Controller Sign Up');
+    logInfo('Controller adding Historial');
     await operation.addHistorial(historial);
     return true;
   }

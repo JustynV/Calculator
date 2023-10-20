@@ -21,7 +21,7 @@ class User {
   String password;
   String difficulty;
 
-  String get name => '$firstName $lastName';
+  String get name => firstName;
 
   String get emailAddress => email;
 

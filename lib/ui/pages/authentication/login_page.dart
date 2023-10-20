@@ -24,19 +24,21 @@ class _LoginPageState extends State<LoginPage> {
   _login(theEmail, thePassword) async {
     logInfo('_login $theEmail $thePassword');
     try {
-
       bool a = await authenticationController.login(theEmail, thePassword);
-      if(a){
-        User user = await authenticationController.getUser(theEmail, thePassword);
-        userController.setUser(user);
-                Get.to(UserPage());
-      }else{
+      if (a) {
         Get.snackbar(
-        "Login",
-        "Revise usuario y/o contraseña",
-        icon: const Icon(Icons.person, color: Colors.red),
-        snackPosition: SnackPosition.BOTTOM,
-      );
+          "Login",
+          "Login Exitoso",
+          icon: const Icon(Icons.person, color: Colors.red),
+          snackPosition: SnackPosition.BOTTOM,
+        );
+      } else {
+        Get.snackbar(
+          "Login",
+          "Revise usuario y/o contraseña",
+          icon: const Icon(Icons.person, color: Colors.red),
+          snackPosition: SnackPosition.BOTTOM,
+        );
       }
     } catch (err) {
       Get.snackbar(

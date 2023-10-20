@@ -7,7 +7,6 @@ import 'package:f_web_authentication/ui/controller/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
-
 import 'domain/repositories/repository.dart';
 import 'domain/use_case/authentication_usecase.dart';
 
@@ -24,6 +23,7 @@ void main() {
   Get.put(UserController());
   Get.put(UserUseCase());
   Get.put(OperationController());
+
   runApp(const MyApp());
 }
 
@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+
       title: 'Calculator',
       theme: ThemeData(
         primarySwatch: Colors.blue,

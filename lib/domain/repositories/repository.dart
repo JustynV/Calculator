@@ -12,6 +12,7 @@ class Repository {
 
   Repository() {
     _userDatasource = UserDataSource();
+    _historialDatasource = HistorialDataSource();
   }
 
   Future<bool> login(String email, String password) async{
@@ -35,11 +36,7 @@ class Repository {
   }
 
   Future<bool> addHistorial(Historial historial) async {
+      logInfo("Repository adding historial");
       return await _historialDatasource.addHistorial(historial);
   }
-
-  getUser(String theEmail, String thePassword)  async {
-      return await _userDatasource.getUser(theEmail, thePassword);
-    }
-
 }

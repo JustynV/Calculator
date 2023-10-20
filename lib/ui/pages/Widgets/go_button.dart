@@ -16,14 +16,8 @@ class GoButton extends StatelessWidget {
         width: 250,
         height: 80,
         child: ElevatedButton(
-          onPressed: () async {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => ProblemPage(
-                        operation: operation,
-                      )),
-            );
+          onPressed: (){
+            Get.to(ProblemPage(operation: operation));
           },
           child: Text(
             name,

@@ -1,23 +1,21 @@
 import 'package:f_web_authentication/ui/controller/operation_controller.dart';
-import 'package:f_web_authentication/ui/controller/user_controller.dart';
-import 'package:f_web_authentication/ui/pages/content/historial_page.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../Widgets/clearButton.dart';
-import '../Widgets/sendButton.dart';
-import '../Widgets/numberButton.dart';
+import '../Widgets/clear_button.dart';
+import '../Widgets/send_button.dart';
+import '../Widgets/number_button.dart';
 
+// ignore: must_be_immutable
 class ProblemPage extends StatelessWidget {
   ProblemPage({super.key, required this.operation});
 
   final String operation;
 
   final OperationController opController = Get.find();
-  final UserController userController = Get.find();
 
-  Stopwatch time = Stopwatch()..start();
+  final Stopwatch time = Stopwatch()..start();
 
   List operations = [];
 
@@ -46,17 +44,6 @@ class ProblemPage extends StatelessWidget {
       ),
       body: Center(
           child: Column(children: [
-        StreamBuilder<int>(
-          stream: opController.tries.stream,
-          builder: (context, snapshot) {
-            if (snapshot.data == 0) {
-              Stopwatch().stop();
-              opController.time.value = time.elapsed.inSeconds;
-              Get.to(HistorialPage());
-            }
-            return Container();
-          },
-        ),
         Obx(() => Text("${getData()} = ${opController.getInput}",
             style: const TextStyle(fontSize: 64.0))),
         Expanded(
@@ -94,7 +81,7 @@ class ProblemPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         NumberButton("0"),
-                        clearButton(),
+                        ClearButton(),
                         Obx(() => SendButton(
                               a: operations[opController.getTries - 1][0],
                               b: operations[opController.getTries - 1][1],

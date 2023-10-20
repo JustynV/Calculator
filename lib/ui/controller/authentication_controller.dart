@@ -1,5 +1,4 @@
 import 'package:f_web_authentication/domain/use_case/authentication_usecase.dart';
-import 'package:f_web_authentication/domain/use_case/user_usecase.dart';
 import 'package:get/get.dart';
 
 import 'package:loggy/loggy.dart';
@@ -31,10 +30,5 @@ class AuthenticationController extends GetxController {
   Future<bool> verifyEmail(String value) async{
     final AuthenticationUseCase authentication = Get.find();
     return await authentication.verifyEmail(value);
-  }
-
-  Future<User> getUser(String theEmail, String thePassword) async {
-    final UserUseCase authentication = Get.find();
-    return await authentication.getUser(theEmail, thePassword);
   }
 }
