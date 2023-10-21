@@ -1,6 +1,8 @@
+import 'package:f_web_authentication/domain/models/local_user.dart';
 import 'package:f_web_authentication/domain/models/user.dart';
 import 'package:f_web_authentication/domain/use_case/user_usecase.dart';
 import 'package:get/get.dart';
+import 'package:loggy/loggy.dart';
 
 class UserController extends GetxController {
   UserController();
@@ -30,16 +32,28 @@ class UserController extends GetxController {
     difficulty.value = diff;
   }
 
-  setUser(User u){
-   firstName.value = u.gFname;
-   lastName.value  = u.gLname;
-   email.value  = u.gemail;
-   school.value  = u.gschool;
-   grade.value  = u.ggrade;
-   bdate.value  = u.gbdate;
-   difficulty.value  = u.gdificulty;
-   password.value  = u.password;
-   id.value  = u.gid;
+  setUser(User u) {
+    firstName.value = u.gFname;
+    lastName.value = u.gLname;
+    email.value = u.gemail;
+    school.value = u.gschool;
+    grade.value = u.ggrade;
+    bdate.value = u.gbdate;
+    difficulty.value = u.gdificulty;
+    password.value = u.password;
+    id.value = u.gid;
+  }
+
+  setLocalUser(LocalUser u) {
+    firstName.value = u.gFname;
+    lastName.value = u.gLname;
+    email.value = u.gemail;
+    school.value = u.gschool;
+    grade.value = u.ggrade;
+    bdate.value = u.gbdate;
+    difficulty.value = u.gdificulty;
+    password.value = u.password;
+    id.value = u.gid;
   }
 
   Future<void> updateUser() async {
@@ -54,5 +68,21 @@ class UserController extends GetxController {
         difficulty: difficulty.value,
         id: int.parse(getID));
     await userUseCase.updateUser(user);
+  }
+
+  Future<void> updateUserLocal() async{
+    logInfo(getID);
+    logInfo("Controller updating user local");
+        LocalUser user = LocalUser(
+        firstName: firstName.value,
+        lastName: lastName.value,
+        email: email.value,
+        school: school.value,
+        grade: grade.value,
+        bdate: bdate.value,
+        password: password.value,
+        difficulty: difficulty.value,
+        id: int.parse(getID));
+    await userUseCase.updateUserLocal(user);
   }
 }

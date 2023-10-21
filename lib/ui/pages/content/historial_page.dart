@@ -1,4 +1,5 @@
 import 'package:f_web_authentication/domain/models/historial.dart';
+import 'package:f_web_authentication/ui/controller/connection_controller.dart';
 import 'package:f_web_authentication/ui/controller/operation_controller.dart';
 import 'package:f_web_authentication/ui/controller/user_controller.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ class HistorialPage extends StatelessWidget {
 
   final OperationController opController = Get.find();
   final UserController userController = Get.find();
+  final ConnectionController connectionController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +60,11 @@ class HistorialPage extends StatelessWidget {
                     userController
                         .setDifficulty(opController.difficulty.toString());
 
-                    userController.updateUser();
+                    if (connectionController.isConnected) {
+                      userController.updateUser();
+                    } else {
+                      userController.updateUserLocal();
+                    }
                     Get.back();
                   },
                   child: const Text("Finalizar",

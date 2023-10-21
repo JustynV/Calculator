@@ -8,6 +8,9 @@ import '../models/user.dart';
 class AuthenticationUseCase {
   final Repositories _repository = Get.find();
 
+
+  
+
   Future<bool> login(String email, String password) async {
     logInfo('UseCase Logging in');
     return await _repository.login(email, password);
@@ -23,12 +26,12 @@ class AuthenticationUseCase {
   }
 
   Future<bool> loginLocal(String email, String password) async {
-    logInfo('UseCase Logging in');
+    logInfo('UseCase Local Logging in');
     return await _repository.loginLocal(email, password);
   }
 
   Future<bool> signUpLocal(LocalUser user) async {
-    logInfo('UseCase Sign Up');
+    logInfo('UseCase Local Sign Up');
     return await _repository.signUpLocal(user);
   }
   

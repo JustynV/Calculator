@@ -1,3 +1,4 @@
+import 'package:f_web_authentication/domain/models/local_user.dart';
 import 'package:get/get.dart';
 import '../models/user.dart';
 import '../repositories/repositories.dart';
@@ -10,5 +11,6 @@ class UserUseCase {
   Future<void> updateUser(User user) async =>
       await _repository.updateUser(user);
 
-
+  Future<void> updateUserLocal(LocalUser user) async =>
+      await _repository.updateUserLocal(user);
 }

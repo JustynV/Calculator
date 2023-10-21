@@ -24,7 +24,7 @@ class UserPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    operationController.setDiff(userController.gdificulty);
+  operationController.setDiff(userController.gdificulty);
     return Scaffold(
         appBar:
           AppBar(leading: null, 

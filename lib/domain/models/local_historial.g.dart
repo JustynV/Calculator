@@ -8,7 +8,7 @@ part of 'local_historial.dart';
 
 class LocalHistorialAdapter extends TypeAdapter<LocalHistorial> {
   @override
-  final int typeId = 0;
+  final int typeId = 1;
 
   @override
   LocalHistorial read(BinaryReader reader) {

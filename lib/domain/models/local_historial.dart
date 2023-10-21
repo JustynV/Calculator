@@ -3,7 +3,7 @@ import "package:hive/hive.dart";
 
 part "local_historial.g.dart";
 
-@HiveType(typeId: 0)
+@HiveType(typeId: 1)
 class LocalHistorial extends HiveObject{
   @HiveField(0)
   String q1;  

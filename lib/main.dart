@@ -10,11 +10,24 @@ import 'package:f_web_authentication/ui/controller/user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:loggy/loggy.dart';
 import 'domain/repositories/repositories.dart';
 import 'domain/use_case/authentication_usecase.dart';
 
-void main() {
+Future<List<Box>> _openBox() async {
+  List<Box> boxList = [];
+    await Hive.initFlutter();
+  Hive.registerAdapter(LocalUserAdapter());
+  boxList.add(await Hive.openBox('users'));
+  Hive.registerAdapter(LocalHistorialAdapter());
+  boxList.add(await Hive.openBox('historials'));
+  logInfo("Boxes Created and opened");
+  return boxList;
+}
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await _openBox();
   Loggy.initLoggy(
     logPrinter: const PrettyPrinter(
       showColors: true,
@@ -34,15 +47,7 @@ void main() {
 
 
 
-Future<List<Box>> _openBox() async {
-  List<Box> boxList = [];
-  await Hive.initFlutter();
-  Hive.registerAdapter(LocalUserAdapter());
-  boxList.add(await Hive.openBox('Users'));
-  Hive.registerAdapter(LocalHistorialAdapter());
-  boxList.add(await Hive.openBox("Historials"));
-  return boxList;
-}
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 

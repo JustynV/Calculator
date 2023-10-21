@@ -25,8 +25,14 @@ class _FirebaseSignUpState extends State<SignUp> {
   final controllerBirth = TextEditingController();
   AuthenticationController authenticationController = Get.find();
   ConnectionController connectionController = Get.find();
+
+
   Future<bool> validateEmail(String value) async {
-    return authenticationController.verifyEmail(value);
+    if(connectionController.isConnected){
+          return authenticationController.verifyEmail(value);
+    }else{
+          return authenticationController.verifyEmailLocal(value);
+    }
   }
 
   userCreate() {

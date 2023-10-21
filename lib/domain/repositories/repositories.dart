@@ -41,16 +41,17 @@ class Repositories {
   }
 
   Future<bool> verifyEmail(String? value) async {
+    logInfo("Repositories verifying email");
     return await _userDatasource.verifyEmail(value);
   }
 
   Future<bool> loginLocal(String email, String password) async {
-    logInfo("Repositories Logging In");
-    return await _userDatasource.login(email, password);
+    logInfo("Repositories Logging In Local");
+    return await _localUserDataSource.login(email, password);
   }
 
   Future<bool> signUpLocal(LocalUser user) async {
-    logInfo("Repositories Sign Up");
+    logInfo("Repositories Sign Up Local");
     return await _localUserDataSource.signUp(user);
   }
 
@@ -58,15 +59,14 @@ class Repositories {
       await _localUserDataSource.updateUser(user);
 
   Future<bool> addHistorialLocal(LocalHistorial historial) async {
-    logInfo("Repositories adding historial");
+    logInfo("Repositories adding historial local");
     return await _localHistorialDataSource.addHistorial(historial);
   }
 
   Future<bool> verifyEmailLocal(String? value) async {
+    logInfo("Repositories verifying email local");
     return await _userDatasource.verifyEmail(value);
   }
-
-
 
   Future<bool> logOut() async => await _userDatasource.logOut();
 }

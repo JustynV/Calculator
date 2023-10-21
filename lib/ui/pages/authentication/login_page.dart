@@ -129,7 +129,8 @@ class _LoginPageState extends State<LoginPage> {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => const SignUp()));
                 },
-                child: const Text("Create account"))
+                child: const Text("Create account")),
+                Obx(() => Text(connectionController.isConnected? "Hay internet":"No hay internet")) 
           ],
         ),
       ),

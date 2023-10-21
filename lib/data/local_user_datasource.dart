@@ -1,11 +1,14 @@
 import 'package:f_web_authentication/domain/models/local_user.dart';
+import 'package:f_web_authentication/ui/controller/user_controller.dart';
+import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:loggy/loggy.dart';
 
 class LocalUserDataSource {
   Future<bool> signUp(LocalUser user) async {
+    logInfo("Local datasource signUp");
     try {
-      Hive.box("Users").add(user);
+      Hive.box('users').add(user);
       return Future.value(true);
     } catch (error) {
       logError(error);
@@ -14,8 +17,13 @@ class LocalUserDataSource {
   }
 
   Future<bool> updateUser(LocalUser user) async {
+    logInfo("Datasource updating user local");
     try {
-      Hive.box("Users").put(user.id, user);
+      Hive.box('users').put(user.id, user);
+      final allValues = Hive.box('users').values;
+      for (var value in allValues) {
+        logInfo(value);
+      }
       return Future.value(true);
     } catch (error) {
       logError(error);
@@ -24,15 +32,28 @@ class LocalUserDataSource {
   }
 
   Future<bool> login(String email, String password) async {
-    return Hive.box("Users").get({email, password}) == null
-        ? Future.value(false)
-        : Future.value(true);
+    UserController userController = Get.find();
+    logInfo("Local datasource Login");
+    for (var key in Hive.box('users').keys) {
+      final value = Hive.box('users').get(key);
+      if (value.email == email && value.password == password) {
+        logInfo(value.gid);
+        userController.setLocalUser(value);
+        return Future.value(true);
+      }
+    }
+    return Future.value(false);
   }
 
   Future<bool> verifyEmail(String? email) async {
-    return Hive.box("Users").get({email}) == null
-        ? Future.value(false)
-        : Future.value(true);
+    logInfo("Local datasource Login");
+    for (var key in Hive.box('users').keys) {
+      final value = Hive.box('users').get(key);
+      if (value.email == email) {
+        return Future.value(false);
+      }
+    }
+    return Future.value(true);
   }
 
   Future<bool> logOut() async {

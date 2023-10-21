@@ -35,10 +35,8 @@ class LocalUser extends HiveObject {
     required this.password,
     required this.difficulty
   });
+  
   int? id;
-
-
-
   String get gFname => firstName;
   String get gLname => lastName;
   String get gemail => email;

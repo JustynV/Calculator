@@ -1,5 +1,6 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:get/get.dart';
+import 'package:loggy/loggy.dart';
 
 class ConnectionController extends GetxController {
   ConnectionController();
@@ -18,6 +19,7 @@ class ConnectionController extends GetxController {
   }
 
   Future<void> checkConnection() async {
+    logInfo("Checking internet Connection...");
     if (connectionStatus.value  == ConnectivityResult.none) {
       connectivity.value = false;
     } else {
