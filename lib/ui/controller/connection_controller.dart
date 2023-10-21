@@ -1,4 +1,3 @@
-
 import 'package:f_web_authentication/data/datasources/remote/historial_datasource.dart';
 import 'package:f_web_authentication/data/datasources/remote/user_datasource.dart';
 import 'package:f_web_authentication/domain/models/historial.dart';
@@ -11,7 +10,7 @@ import 'dart:html' as html;
 class ConnectionController extends GetxController {
   ConnectionController();
 
-  RxBool connectivity = false.obs;
+  RxBool connectivity = true.obs;
   //final Rx<ConnectivityResult> connectionStatus = ConnectivityResult.none.obs;
   bool get isConnected => connectivity.value;
 
@@ -37,9 +36,10 @@ class ConnectionController extends GetxController {
     var historials = Hive.box('historials').values;
 
     var histKeys = Hive.box('historials').keys;
-    var userKeys= Hive.box('users').keys;
+    var userKeys = Hive.box('users').keys;
 
     for (var user in users) {
+      logInfo(user);
       User u = User(
           id: user.id,
           firstName: user.gFname,
@@ -61,6 +61,7 @@ class ConnectionController extends GetxController {
     Hive.box('users').deleteAll(userKeys);
 
     users = await userDataSource.getAll();
+    logInfo("Adding all users in local");
     for (var user in users) {
       Hive.box('users').add(user);
     }
