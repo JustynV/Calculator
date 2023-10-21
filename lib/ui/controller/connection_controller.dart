@@ -1,6 +1,7 @@
 import 'package:f_web_authentication/data/datasources/remote/historial_datasource.dart';
 import 'package:f_web_authentication/data/datasources/remote/user_datasource.dart';
 import 'package:f_web_authentication/domain/models/historial.dart';
+import 'package:f_web_authentication/domain/models/local_user.dart';
 import 'package:f_web_authentication/domain/models/user.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
@@ -60,11 +61,7 @@ class ConnectionController extends GetxController {
 
     Hive.box('users').deleteAll(userKeys);
 
-    users = await userDataSource.getAll();
-    logInfo("Adding all users in local");
-    for (var user in users) {
-      Hive.box('users').add(user);
-    }
+    addAllUsers();
 
     logInfo("Users updated");
 
@@ -85,6 +82,15 @@ class ConnectionController extends GetxController {
     Hive.box('historials').deleteAll(histKeys);
 
     logInfo("Historials updated");
+  }
+
+  Future<void> addAllUsers() async {
+    UserDataSource userDataSource = Get.find();
+    final users = await userDataSource.getAll();
+    logInfo("Adding all users in local");
+    for (var user in users) {
+      Hive.box('users').add(LocalUser.fromJson(user));
+    }
   }
 
   // @override

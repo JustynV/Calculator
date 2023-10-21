@@ -63,7 +63,7 @@ class UserDataSource {
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
-      return (data[0]);
+      return (data);
     } else {
       logError("Got error code ${response.statusCode}");
       return Future.value(false);
