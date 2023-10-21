@@ -1,4 +1,5 @@
 import 'package:f_web_authentication/domain/models/historial.dart';
+import 'package:f_web_authentication/domain/models/local_historial.dart';
 import 'package:f_web_authentication/ui/controller/connection_controller.dart';
 import 'package:f_web_authentication/ui/controller/operation_controller.dart';
 import 'package:f_web_authentication/ui/controller/user_controller.dart';
@@ -43,26 +44,40 @@ class HistorialPage extends StatelessWidget {
               Obx(() => Text("Nombre: ${userController.firstName}")),
               ElevatedButton(
                   onPressed: () {
-                    opController.addHistorial(Historial(
-                        q1: lista[0].toString(),
-                        q2: lista[1].toString(),
-                        q3: lista[2].toString(),
-                        q4: lista[3].toString(),
-                        q5: lista[4].toString(),
-                        q6: lista[5].toString(),
-                        time: time.toString(),
-                        difficulty: opController.getDifficulty,
-                        userID: userController.getID));
-
-                    opController
-                        .setDifficulty(int.parse(opController.getCorrects));
-
-                    userController
-                        .setDifficulty(opController.difficulty.toString());
-
                     if (connectionController.isConnected) {
+                      opController.addHistorial(Historial(
+                          q1: lista[0].toString(),
+                          q2: lista[1].toString(),
+                          q3: lista[2].toString(),
+                          q4: lista[3].toString(),
+                          q5: lista[4].toString(),
+                          q6: lista[5].toString(),
+                          time: time.toString(),
+                          difficulty: opController.getDifficulty,
+                          userID: userController.getID));
+
+                      opController
+                          .setDifficulty(int.parse(opController.getCorrects));
+
+                      userController
+                          .setDifficulty(opController.difficulty.toString());
+
                       userController.updateUser();
                     } else {
+                      opController.addHistorialLocal(LocalHistorial(
+                          q1: lista[0].toString(),
+                          q2: lista[1].toString(),
+                          q3: lista[2].toString(),
+                          q4: lista[3].toString(),
+                          q5: lista[4].toString(),
+                          q6: lista[5].toString(),
+                          time: time.toString(),
+                          difficulty: opController.getDifficulty,
+                          userID: userController.getID));
+                      opController
+                          .setDifficulty(int.parse(opController.getCorrects));
+                      userController
+                          .setDifficulty(opController.difficulty.toString());
                       userController.updateUserLocal();
                     }
                     Get.back();

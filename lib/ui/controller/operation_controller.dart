@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:f_web_authentication/domain/models/historial.dart';
+import 'package:f_web_authentication/domain/models/local_historial.dart';
 import 'package:f_web_authentication/domain/use_case/operation_usecase.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
@@ -125,4 +126,13 @@ class OperationController extends GetxController {
     await operation.addHistorial(historial);
     return true;
   }
+
+  Future<bool> addHistorialLocal(LocalHistorial historial) async {
+    final OperationUsecase operation = Get.find();
+    logInfo('Controller adding Historial Local');
+    await operation.addHistorialLocal(historial);
+    return true;
+  }
+
+
 }

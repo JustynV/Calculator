@@ -1,6 +1,4 @@
-import 'package:f_web_authentication/domain/models/local_user.dart';
 import 'package:f_web_authentication/domain/models/user.dart';
-import 'package:f_web_authentication/ui/controller/connection_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
@@ -24,48 +22,27 @@ class _FirebaseSignUpState extends State<SignUp> {
   final controllerGrade = TextEditingController(text: "11");
   final controllerBirth = TextEditingController();
   AuthenticationController authenticationController = Get.find();
-  ConnectionController connectionController = Get.find();
-
 
   Future<bool> validateEmail(String value) async {
-    if(connectionController.isConnected){
-          return authenticationController.verifyEmail(value);
-    }else{
-          return authenticationController.verifyEmailLocal(value);
-    }
+    logInfo("Checking email remotely");
+    return authenticationController.verifyEmail(value);
   }
 
   userCreate() {
-    if (connectionController.isConnected) {
-      return User(
-          firstName: controllerFname.text,
-          lastName: controllerLname.text,
-          email: controllerEmail.text,
-          school: controllerSchool.text,
-          grade: controllerGrade.text,
-          bdate: controllerBirth.text,
-          password: controllerPassword.text,
-          difficulty: "1");
-    }else{
-      return LocalUser(
-          firstName: controllerFname.text,
-          lastName: controllerLname.text,
-          email: controllerEmail.text,
-          school: controllerSchool.text,
-          grade: controllerGrade.text,
-          bdate: controllerBirth.text,
-          password: controllerPassword.text,
-          difficulty: "1");
-    }
+    return User(
+        firstName: controllerFname.text,
+        lastName: controllerLname.text,
+        email: controllerEmail.text,
+        school: controllerSchool.text,
+        grade: controllerGrade.text,
+        bdate: controllerBirth.text,
+        password: controllerPassword.text,
+        difficulty: "1");
   }
 
   _signup(user) async {
     try {
-      if (connectionController.isConnected) {
-        await authenticationController.signUp(user);
-      } else {
-        await authenticationController.signUpLocal(user);
-      }
+      await authenticationController.signUp(user);
       Get.back();
       Get.snackbar(
         "Sign Up",

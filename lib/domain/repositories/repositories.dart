@@ -25,6 +25,7 @@ class Repositories {
   Future<bool> login(String email, String password) async {
     logInfo("Repositories Logging In");
     return await _userDatasource.login(email, password);
+
   }
 
   Future<bool> signUp(User user) async {
@@ -49,23 +50,14 @@ class Repositories {
     logInfo("Repositories Logging In Local");
     return await _localUserDataSource.login(email, password);
   }
-
-  Future<bool> signUpLocal(LocalUser user) async {
-    logInfo("Repositories Sign Up Local");
-    return await _localUserDataSource.signUp(user);
+  
+  Future<bool> updateUserLocal(LocalUser user) async {
+    return await _localUserDataSource.updateUser(user);
   }
-
-  Future<bool> updateUserLocal(LocalUser user) async =>
-      await _localUserDataSource.updateUser(user);
 
   Future<bool> addHistorialLocal(LocalHistorial historial) async {
     logInfo("Repositories adding historial local");
     return await _localHistorialDataSource.addHistorial(historial);
-  }
-
-  Future<bool> verifyEmailLocal(String? value) async {
-    logInfo("Repositories verifying email local");
-    return await _userDatasource.verifyEmail(value);
   }
 
   Future<bool> logOut() async => await _userDatasource.logOut();

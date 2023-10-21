@@ -28,8 +28,7 @@ class _LoginPageState extends State<LoginPage> {
       if (connectionController.isConnected) {
         a = await authenticationController.login(theEmail, thePassword);
       } else {
-        a =
-            await authenticationController.loginLocal(theEmail, thePassword);
+        a = await authenticationController.loginLocal(theEmail, thePassword);
       }
       if (a) {
         Get.snackbar(
@@ -126,11 +125,28 @@ class _LoginPageState extends State<LoginPage> {
             ),
             TextButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const SignUp()));
+                  if (connectionController.isConnected) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SignUp()));
+                  } else {
+                    Get.snackbar(
+                      "Sign Up",
+                      "Necesita acceso a internet para crear usuarios, verifique su conexión",
+                      icon: const Icon(Icons.person, color: Colors.red),
+                      snackPosition: SnackPosition.BOTTOM,
+                    );
+                  }
                 },
                 child: const Text("Create account")),
-                Obx(() => Text(connectionController.isConnected? "Hay internet":"No hay internet")) 
+            Obx(() => Text(
+                connectionController.isConnected
+                    ? "Conectado"
+                    : "Desconectado",
+                style: connectionController.isConnected
+                    ? TextStyle(color: Colors.green, fontSize: 40.0)
+                    : TextStyle(color: Colors.red, fontSize: 40.0))),
           ],
         ),
       ),

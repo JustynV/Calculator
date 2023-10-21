@@ -26,9 +26,10 @@ class User {
   String get gschool => school;
   String get ggrade => grade;
   String get gbdate => bdate;
-  String get gdificulty => difficulty;
+  String get gdifficulty => difficulty;
   String get emailAddress => email;
   String get gid => id.toString();
+  String get gpassword => password;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         id: json["id"],

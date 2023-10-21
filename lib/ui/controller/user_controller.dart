@@ -39,7 +39,7 @@ class UserController extends GetxController {
     school.value = u.gschool;
     grade.value = u.ggrade;
     bdate.value = u.gbdate;
-    difficulty.value = u.gdificulty;
+    difficulty.value = u.gdifficulty;
     password.value = u.password;
     id.value = u.gid;
   }
@@ -51,7 +51,7 @@ class UserController extends GetxController {
     school.value = u.gschool;
     grade.value = u.ggrade;
     bdate.value = u.gbdate;
-    difficulty.value = u.gdificulty;
+    difficulty.value = u.gdifficulty;
     password.value = u.password;
     id.value = u.gid;
   }
@@ -71,7 +71,6 @@ class UserController extends GetxController {
   }
 
   Future<void> updateUserLocal() async{
-    logInfo(getID);
     logInfo("Controller updating user local");
         LocalUser user = LocalUser(
         firstName: firstName.value,
@@ -82,7 +81,8 @@ class UserController extends GetxController {
         bdate: bdate.value,
         password: password.value,
         difficulty: difficulty.value,
-        id: int.parse(getID));
+        id: int.parse(getID)
+        );
     await userUseCase.updateUserLocal(user);
   }
 }

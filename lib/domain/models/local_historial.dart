@@ -22,10 +22,13 @@ class LocalHistorial extends HiveObject{
   @HiveField(7)
   String difficulty;  
   @HiveField(8)
+  int? id;
+  @HiveField(9)
   String userID;
   
 
-  LocalHistorial({
+  LocalHistorial({   
+    this.id,
     required this.q1,
     required this.q2,
     required this.q3,
@@ -34,7 +37,7 @@ class LocalHistorial extends HiveObject{
     required this.q6,
     required this.time,
     required this.difficulty,
-    required this.userID
+    required this.userID,
   });
 
   factory LocalHistorial.fromJson(Map<String, dynamic> json) => LocalHistorial(
@@ -46,7 +49,8 @@ class LocalHistorial extends HiveObject{
         q6: json["Question6"],
         time: json["time"],
         difficulty: json["difficulty"],
-        userID:json["userID"]
+        userID: json["userID"],
+        id:json["id"]
       );
 
 
@@ -59,6 +63,6 @@ class LocalHistorial extends HiveObject{
         "Question6": q6,
         "time": time,
         "difficulty":difficulty,
-        "user": userID
+        "id": id
       };
 }

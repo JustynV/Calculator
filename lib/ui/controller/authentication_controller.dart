@@ -1,4 +1,3 @@
-import 'package:f_web_authentication/domain/models/local_user.dart';
 import 'package:f_web_authentication/domain/use_case/authentication_usecase.dart';
 import 'package:get/get.dart';
 
@@ -38,21 +37,6 @@ class AuthenticationController extends GetxController {
     logInfo('Controller logging in local');
     logged.value = await authentication.loginLocal(email, password);
     return logged.value;
-  }
-
-  Future<bool> signUpLocal(LocalUser user) async {
-    final AuthenticationUseCase authentication = Get.find();
-
-    logInfo('Controller Sign Up Local');
-    await authentication.signUpLocal(user);
-    return true;
-  }
-
-  Future<bool> verifyEmailLocal(String? value) async {
-    final AuthenticationUseCase authentication = Get.find();
-    logInfo('Controller Verifying email Local');
-    exist.value = await authentication.verifyEmailLocal(value);
-    return exist.value;
   }
 
   Future<void> logOut() async {

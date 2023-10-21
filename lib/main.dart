@@ -1,3 +1,7 @@
+import 'package:f_web_authentication/data/datasources/remote/historial_datasource.dart';
+import 'package:f_web_authentication/data/datasources/remote/user_datasource.dart';
+import 'package:f_web_authentication/data/local_historial_datasource.dart';
+import 'package:f_web_authentication/data/local_user_datasource.dart';
 import 'package:f_web_authentication/domain/models/local_historial.dart';
 import 'package:f_web_authentication/domain/models/local_user.dart';
 import 'package:f_web_authentication/domain/use_case/operation_usecase.dart';
@@ -17,7 +21,7 @@ import 'domain/use_case/authentication_usecase.dart';
 
 Future<List<Box>> _openBox() async {
   List<Box> boxList = [];
-    await Hive.initFlutter();
+  await Hive.initFlutter();
   Hive.registerAdapter(LocalUserAdapter());
   boxList.add(await Hive.openBox('users'));
   Hive.registerAdapter(LocalHistorialAdapter());
@@ -25,7 +29,8 @@ Future<List<Box>> _openBox() async {
   logInfo("Boxes Created and opened");
   return boxList;
 }
-void main() async{
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await _openBox();
   Loggy.initLoggy(
@@ -41,12 +46,13 @@ void main() async{
   Get.put(UserController());
   Get.put(OperationController());
   Get.put(ConnectionController());
+  Get.put(LocalUserDataSource());
+  Get.put(LocalHistorialDataSource());
+  Get.put(HistorialDataSource());
+  Get.put(UserDataSource());
 
   runApp(const MyApp());
 }
-
-
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -54,7 +60,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-
       title: 'Calculator',
       theme: ThemeData(
         primarySwatch: Colors.blue,

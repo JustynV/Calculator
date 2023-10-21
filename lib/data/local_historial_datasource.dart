@@ -3,11 +3,14 @@ import 'package:hive/hive.dart';
 import 'package:loggy/loggy.dart';
 
 class LocalHistorialDataSource {
-  final String apiKey = '929Vpx';
 
   Future<bool> addHistorial(LocalHistorial historial) async {
     try {
       Hive.box("Historials").add(historial);
+      final allValues = Hive.box("Historials").values;
+      for(var v in allValues){
+        logInfo(v);
+      }
       return Future.value(true);
     } catch (error) {
       logError(error);

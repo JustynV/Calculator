@@ -17,6 +17,7 @@ class LocalHistorialAdapter extends TypeAdapter<LocalHistorial> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return LocalHistorial(
+      id: fields[8] as int?,
       q1: fields[0] as String,
       q2: fields[1] as String,
       q3: fields[2] as String,
@@ -25,14 +26,14 @@ class LocalHistorialAdapter extends TypeAdapter<LocalHistorial> {
       q6: fields[5] as String,
       time: fields[6] as String,
       difficulty: fields[7] as String,
-      userID: fields[8] as String,
+      userID: fields[9] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, LocalHistorial obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(10)
       ..writeByte(0)
       ..write(obj.q1)
       ..writeByte(1)
@@ -50,6 +51,8 @@ class LocalHistorialAdapter extends TypeAdapter<LocalHistorial> {
       ..writeByte(7)
       ..write(obj.difficulty)
       ..writeByte(8)
+      ..write(obj.id)
+      ..writeByte(9)
       ..write(obj.userID);
   }
 

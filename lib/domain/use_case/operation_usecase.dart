@@ -1,4 +1,5 @@
 import 'package:f_web_authentication/domain/models/historial.dart';
+import 'package:f_web_authentication/domain/models/local_historial.dart';
 import 'package:f_web_authentication/domain/repositories/repositories.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
@@ -17,4 +18,11 @@ class OperationUsecase {
     logInfo("Usecase adding historial");
     await _repository.addHistorial(historial);
   }
+
+  Future<void> addHistorialLocal(LocalHistorial historial) async {
+    logInfo("Usecase adding historial local");
+    await _repository.addHistorialLocal(historial);
+  }
+
+
 }

@@ -5,35 +5,28 @@ import 'package:hive/hive.dart';
 import 'package:loggy/loggy.dart';
 
 class LocalUserDataSource {
-  Future<bool> signUp(LocalUser user) async {
-    logInfo("Local datasource signUp");
-    try {
-      Hive.box('users').add(user);
-      return Future.value(true);
-    } catch (error) {
-      logError(error);
-      return Future.value(false);
-    }
-  }
 
   Future<bool> updateUser(LocalUser user) async {
     logInfo("Datasource updating user local");
-    try {
-      Hive.box('users').put(user.id, user);
-      final allValues = Hive.box('users').values;
-      for (var value in allValues) {
-        logInfo(value);
+    for (var key in Hive.box('users').keys) {
+      final value = Hive.box('users').get(key);
+      if (value.email == user.email && value.password == user.password) {
+        logInfo("User found");
+        Hive.box('users').put(key, user);
+        return Future.value(true);
       }
-      return Future.value(true);
-    } catch (error) {
-      logError(error);
-      return Future.value(false);
     }
+    return Future.value(false);
   }
 
   Future<bool> login(String email, String password) async {
     UserController userController = Get.find();
     logInfo("Local datasource Login");
+
+    for (var user in Hive.box('users').values){
+      logInfo(user);
+    } 
+
     for (var key in Hive.box('users').keys) {
       final value = Hive.box('users').get(key);
       if (value.email == email && value.password == password) {
@@ -45,18 +38,17 @@ class LocalUserDataSource {
     return Future.value(false);
   }
 
-  Future<bool> verifyEmail(String? email) async {
-    logInfo("Local datasource Login");
-    for (var key in Hive.box('users').keys) {
-      final value = Hive.box('users').get(key);
-      if (value.email == email) {
-        return Future.value(false);
-      }
+  Future<bool> addUser(user) async {
+    logInfo("Local datasource adding");
+    try {
+      Hive.box('users').add(user);
+      return Future.value(true);
+    } catch (err) {
+      return Future.value(false);
     }
-    return Future.value(true);
   }
+}
 
-  Future<bool> logOut() async {
-    return Future.value(true);
-  }
+Future<bool> logOut() async {
+  return Future.value(true);
 }
