@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:f_web_authentication/data/local_user_datasource.dart';
+import 'package:f_web_authentication/data/datasources/remote/local_user_datasource.dart';
 import 'package:f_web_authentication/domain/models/local_user.dart';
 import 'package:f_web_authentication/ui/controller/user_controller.dart';
 import 'package:get/get.dart';

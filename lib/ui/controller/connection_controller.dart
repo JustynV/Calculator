@@ -6,6 +6,7 @@ import 'package:f_web_authentication/domain/models/user.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:loggy/loggy.dart';
+// ignore: avoid_web_libraries_in_flutter
 import 'dart:html' as html;
 
 class ConnectionController extends GetxController {

@@ -1,6 +1,6 @@
 import 'package:f_web_authentication/data/datasources/remote/historial_datasource.dart';
-import 'package:f_web_authentication/data/local_historial_datasource.dart';
-import 'package:f_web_authentication/data/local_user_datasource.dart';
+import 'package:f_web_authentication/data/datasources/remote/local_historial_datasource.dart';
+import 'package:f_web_authentication/data/datasources/remote/local_user_datasource.dart';
 import 'package:f_web_authentication/domain/models/historial.dart';
 import 'package:f_web_authentication/domain/models/local_historial.dart';
 import 'package:f_web_authentication/domain/models/local_user.dart';
