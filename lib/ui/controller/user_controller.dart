@@ -57,6 +57,7 @@ class UserController extends GetxController {
   }
 
   Future<void> updateUser() async {
+        logInfo("Controller updating user");
     User user = User(
         firstName: firstName.value,
         lastName: lastName.value,

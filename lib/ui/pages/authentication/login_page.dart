@@ -79,6 +79,7 @@ class _LoginPageState extends State<LoginPage> {
                     TextFormField(
                       keyboardType: TextInputType.emailAddress,
                       controller: controllerEmail,
+                      key: Key("EmailInput"),
                       decoration:
                           const InputDecoration(labelText: "Email address"),
                       validator: (String? value) {
@@ -96,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                     TextFormField(
                       controller: controllerPassword,
                       decoration: const InputDecoration(labelText: "Password"),
-                      keyboardType: TextInputType.number,
+                      keyboardType: TextInputType.number,key: Key("PasswordInput"),
                       obscureText: true,
                       validator: (String? value) {
                         if (value!.isEmpty) {
