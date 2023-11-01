@@ -26,6 +26,7 @@ class ConnectionController extends GetxController {
     html.window.onOffline.listen((_) {
       connectivity.value = false;
     });
+    logInfo(html.window.navigator.onLine);
   }
 
   Future<void> updateDatasources() async {
