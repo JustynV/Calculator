@@ -64,10 +64,11 @@ class _FirebaseSignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[300],
         appBar: AppBar(),
-        body: Center(
+        body: SafeArea(
             child: Container(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(10),
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -78,12 +79,21 @@ class _FirebaseSignUpState extends State<SignUp> {
                           style: TextStyle(fontSize: 20),
                         ),
                         const SizedBox(
-                          height: 20,
+                          height: 7,
                         ),
                         TextFormField(
                           controller: controllerFname,
                           decoration:
-                              const InputDecoration(labelText: "First name"),
+                              InputDecoration(labelText: "First name",
+                              enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white)
+                        ),
+                          focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black)
+                        ),
+                        fillColor: Colors.grey.shade200,
+                        filled:true,
+                        ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               logError('First name is empty');
@@ -92,10 +102,22 @@ class _FirebaseSignUpState extends State<SignUp> {
                             return null;
                           },
                         ),
+                        const SizedBox(
+                      height: 7,
+                    ),
                         TextFormField(
                           controller: controllerLname,
                           decoration:
-                              const InputDecoration(labelText: "Last name"),
+                              InputDecoration(labelText: "Last name",
+                              enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white)
+                        ),
+                          focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black)
+                        ),
+                        fillColor: Colors.grey.shade200,
+                        filled:true,
+                        ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               logError('Last name is empty');
@@ -103,12 +125,23 @@ class _FirebaseSignUpState extends State<SignUp> {
                             }
                             return null;
                           },
-                        ),
+                        ),const SizedBox(
+                      height: 7,
+                    ),
                         TextFormField(
                             keyboardType: TextInputType.emailAddress,
                             controller: controllerEmail,
-                            decoration: const InputDecoration(
-                                labelText: "Email address"),
+                            decoration: InputDecoration(
+                                labelText: "Email address",
+                                enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white)
+                        ),
+                          focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black)
+                        ),
+                        fillColor: Colors.grey.shade200,
+                        filled:true,
+                        ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 logError('SignUp validation empty email');
@@ -119,10 +152,22 @@ class _FirebaseSignUpState extends State<SignUp> {
                               }
                               return null;
                             }),
+                            const SizedBox(
+                      height: 7,
+                    ),
                         TextFormField(
                           controller: controllerPassword,
                           decoration:
-                              const InputDecoration(labelText: "Password"),
+                              InputDecoration(labelText: "Password",
+                              enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white)
+                        ),
+                          focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black)
+                        ),
+                        fillColor: Colors.grey.shade200,
+                        filled:true,
+                        ),
                           keyboardType: TextInputType.number,
                           obscureText: true,
                           validator: (value) {
@@ -135,12 +180,21 @@ class _FirebaseSignUpState extends State<SignUp> {
                           },
                         ),
                         const SizedBox(
-                          height: 20,
+                          height: 7,
                         ),
                         TextFormField(
                           controller: controllerSchool,
                           decoration:
-                              const InputDecoration(labelText: "School"),
+                              InputDecoration(labelText: "School",
+                              enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white)
+                        ),
+                          focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black)
+                        ),
+                        fillColor: Colors.grey.shade200,
+                        filled:true,
+                        ),
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Enter School";
@@ -148,9 +202,21 @@ class _FirebaseSignUpState extends State<SignUp> {
                             return null;
                           },
                         ),
+                        const SizedBox(
+                      height: 7,
+                    ),
                         TextFormField(
                           controller: controllerGrade,
-                          decoration: const InputDecoration(labelText: "Grade"),
+                          decoration: InputDecoration(labelText: "Grade",
+                          enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white)
+                        ),
+                          focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black)
+                        ),
+                        fillColor: Colors.grey.shade200,
+                        filled:true,
+                        ),
                           keyboardType: TextInputType.number,
                           validator: (value) {
                             if (value!.isEmpty) {
@@ -162,10 +228,22 @@ class _FirebaseSignUpState extends State<SignUp> {
                             return null;
                           },
                         ),
+                        const SizedBox(
+                      height: 7,
+                    ),
                         TextFormField(
                           controller: controllerBirth,
                           decoration:
-                              const InputDecoration(labelText: "Birth Date"),
+                              InputDecoration(labelText: "Birth Date",
+                              enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white)
+                        ),
+                          focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black)
+                        ),
+                        fillColor: Colors.grey.shade200,
+                        filled:true,
+                        ),
                           onTap: () async {
                             DateTime? pickedDate = await showDatePicker(
                                 context: context,

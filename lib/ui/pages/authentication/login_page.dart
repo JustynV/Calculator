@@ -58,7 +58,9 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[300],
       body: Container(
+
         padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -69,19 +71,36 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    const SizedBox(height: 50),
+                    Icon(
+                      Icons.lock,
+                      size: 100),
                     const Text(
                       "Login with email",
                       style: TextStyle(fontSize: 20),
                     ),
                     const SizedBox(
-                      height: 20,
+                      height: 25,
                     ),
                     TextFormField(
+                      
                       keyboardType: TextInputType.emailAddress,
                       controller: controllerEmail,
                       key: Key("EmailInput"),
                       decoration:
-                          const InputDecoration(labelText: "Email address"),
+                    
+                           InputDecoration(labelText: "Email address",
+                          enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white)
+                        ),
+                          focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black)
+                        ),
+                        fillColor: Colors.grey.shade200,
+                        filled:true,
+
+                        ),
+
                       validator: (String? value) {
                         if (value!.isEmpty) {
                           return "Enter email";
@@ -96,7 +115,17 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     TextFormField(
                       controller: controllerPassword,
-                      decoration: const InputDecoration(labelText: "Password"),
+                      decoration:InputDecoration(labelText: "Password",
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white)
+                        ),
+                          focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black)
+                        ),
+                        fillColor: Colors.grey.shade200,
+                        filled:true,
+                        ),
+
                       keyboardType: TextInputType.number,key: Key("PasswordInput"),
                       obscureText: true,
                       validator: (String? value) {
@@ -111,7 +140,7 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    OutlinedButton(
+                    ElevatedButton(
                         onPressed: () async {
                           FocusScope.of(context).requestFocus(FocusNode());
                           final form = _formKey.currentState;
@@ -140,7 +169,20 @@ class _LoginPageState extends State<LoginPage> {
                     );
                   }
                 },
-                child: const Text("Create account")),
+                
+
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                  Text("Not a member?",
+                        style: TextStyle(color: Colors.grey[700]),
+                        ),
+                        Text(" create account",
+                        style: TextStyle(color: Colors.deepPurple[700]),
+                        ),
+                ],)  
+                
+                        ),
             Obx(() => Text(
                 connectionController.isConnected
                     ? "Conectado"

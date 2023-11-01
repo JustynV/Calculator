@@ -1,3 +1,6 @@
+import 'dart:js_util';
+
+import 'package:f_web_authentication/main.dart';
 import 'package:f_web_authentication/ui/controller/authentication_controller.dart';
 import 'package:f_web_authentication/ui/controller/operation_controller.dart';
 import 'package:f_web_authentication/ui/controller/user_controller.dart';
@@ -37,6 +40,7 @@ class UserPage extends StatelessWidget {
         ]),
         body: Center(
             child: Column(
+              
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
               Obx(() => Text(
@@ -47,10 +51,19 @@ class UserPage extends StatelessWidget {
                   "Nivel de dificultad actual: ${userController.gdificulty}",
                   style:
                       const TextStyle(fontSize: 20.0, color: Colors.blueGrey))),
-              GoButton("Suma", "+"),
-              GoButton("Resta", "-"),
-              GoButton("Multiplicación", "*"),
-              GoButton("División", "/"),
-            ])));
+              //child: Row(
+              //),const SizedBox(height: 50),
+                    
+              
+            
+              GoButton("Suma",iconMap["add"], "+"),
+              GoButton("Resta",iconMap["subtraction"],"-"),
+              GoButton("Multiplicación",iconMap["multiplication"], "*"),
+              GoButton("División",iconMap["division"], "/"),
+            ]
+            
+            ),
+            ),
+            );
   }
 }

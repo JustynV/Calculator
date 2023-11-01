@@ -53,7 +53,13 @@ void main() async {
 
   runApp(const MyApp());
 }
-
+Map<String, IconData> iconMap = {
+  "add": Icons.add_circle_outline,
+  "subtraction": Icons.remove_circle_outline,
+  "multiplication": Icons.highlight_remove,
+  "division": Icons.apps_sharp,
+  // Add more icon mappings as needed
+};
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -62,7 +68,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Calculator',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.deepPurple,
       ),
       home: const Central(),
     );
